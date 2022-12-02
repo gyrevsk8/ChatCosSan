@@ -1,4 +1,5 @@
 import java.io.*;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -83,8 +84,19 @@ public class Client {
 
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter IP pls: ");
-        String ip = scanner.nextLine();
+        System.out.println("IP:");
+        String ip = String.valueOf(InetAddress.getLocalHost());
+        for(int i=0;i<ip.length();i++)
+        {
+            char[] cip = ip.toCharArray();
+            if(cip[i]=='/')
+            {
+                ip=ip.substring(i+1,ip.length());
+                break;
+            }
+        }
+        System.out.println(ip);
+
         Socket socket = new Socket(ip, 1234);
         System.out.println("Enter your username: ");
         String username = scanner.nextLine();
