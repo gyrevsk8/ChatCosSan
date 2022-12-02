@@ -9,7 +9,11 @@ public class Client {
     private BufferedWriter bufferedWriter;
     private String username;
 
-    public Client(Socket socket, String username) {
+    private String phonenumber;
+
+
+
+    public Client(Socket socket, String username ,String phonenumber) {
        try {
            this.socket = socket;
 
@@ -21,6 +25,7 @@ public class Client {
            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
            
            this.username = username;
+           this.phonenumber = phonenumber;
        } catch (IOException e) {
            closeEverything(socket, bufferedReader, bufferedWriter);
        }
@@ -85,7 +90,9 @@ public class Client {
         Socket socket = new Socket(ip, 1234);
         System.out.println("Enter your username: ");
         String username = scanner.nextLine();
-        Client client = new Client(socket, username);
+        System.out.println("Enter your phonenumber: ");
+        String phonenumber = scanner.nextLine();
+        Client client = new Client(socket, username,phonenumber);
         client.listenForMessage();
         client.sendMessage();
     }
