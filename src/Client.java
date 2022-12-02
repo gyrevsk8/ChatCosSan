@@ -9,6 +9,7 @@ public class Client {
     private BufferedWriter bufferedWriter;
     private String username;
 
+    Mss mss = new Mss();
     public Client(Socket socket, String username) {
        try {
            this.socket = socket;
@@ -30,12 +31,14 @@ public class Client {
         try {
             bufferedWriter.write(username);
             bufferedWriter.newLine();
+
             bufferedWriter.flush();
 
             Scanner scanner = new Scanner(System.in);
             while (socket.isConnected()) {
                 String messageToSend = scanner.nextLine();
                 bufferedWriter.write(username + ": " + messageToSend);
+                mss.mess(username, messageToSend);
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
             }
