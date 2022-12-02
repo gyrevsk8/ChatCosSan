@@ -80,9 +80,11 @@ public class Client {
 
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter IP pls: ");
+        String ip = scanner.nextLine();
+        Socket socket = new Socket(ip, 1234);
         System.out.println("Enter your username: ");
         String username = scanner.nextLine();
-        Socket socket = new Socket("192.168.54.43", 1234);
         Client client = new Client(socket, username);
         client.listenForMessage();
         client.sendMessage();
