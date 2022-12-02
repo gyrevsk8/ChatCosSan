@@ -34,7 +34,7 @@ public class Server {
 
     public void closeServerSocket() {
         try {
-            if (serverSocket != null) { // Если serverSocket окажется null, выдаст нам ошибку, т.к метод close() чувтсвителен к этому. Этот кусок это правит.
+            if (serverSocket != null) { // Если serverSocket окажется null, выдаст нам ошибку, т.к метод close() чувтсвителен к этому. Этот кусок - это правит.
                 serverSocket.close();
             }
         } catch (IOException e) {
