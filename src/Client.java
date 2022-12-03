@@ -1,3 +1,4 @@
+import java.awt.event.ActionEvent;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -11,6 +12,7 @@ public class Client {
     private String username;
 
     Mss mss = new Mss();
+   // IPGet ipg = new IPGet();
     public Client(Socket socket, String username) {
        try {
            this.socket = socket;
@@ -82,19 +84,20 @@ public class Client {
         }
     }
 
+    static String currentCommand = "";
     public static void main(String[] args) throws IOException {
+
         Scanner scanner = new Scanner(System.in);
+
+
+        System.out.println("Manual or Auto?");
+        ClientGUI gui = new ClientGUI();
+        gui.setVisible(true);
+
+
+
         System.out.println("IP:");
-        String ip = String.valueOf(InetAddress.getLocalHost());
-        for(int i=0;i<ip.length();i++)
-        {
-            char[] cip = ip.toCharArray();
-            if(cip[i]=='/')
-            {
-                ip=ip.substring(i+1,ip.length());
-                break;
-            }
-        }
+        String ip = scanner.nextLine();
         System.out.println(ip);
 
         Socket socket = new Socket(ip, 1234);
@@ -103,5 +106,13 @@ public class Client {
         Client client = new Client(socket, username);
         client.listenForMessage();
         client.sendMessage();
+    }
+
+    private static void tw() {
+            while (currentCommand.equals(""))
+            {
+                tw();
+            }
+
     }
 }
