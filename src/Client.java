@@ -1,9 +1,6 @@
-import java.awt.event.ActionEvent;
 import java.io.*;
-import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 
 public class Client {
 
@@ -42,7 +39,7 @@ public class Client {
             while (socket.isConnected()) {
                 String messageToSend = scanner.nextLine();
                 bufferedWriter.write(username + ": " + messageToSend);
-                mss.mess(username, messageToSend);
+                mss.setNewLogMessage(username, messageToSend);
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
             }
