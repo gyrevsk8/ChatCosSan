@@ -3,7 +3,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.ClientInfoStatus;
 
-public class Server {
+public class Server implements ServerF {
 
     private ServerSocket serverSocket;
 
