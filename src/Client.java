@@ -82,7 +82,7 @@ public class Client {
         }
     }
 
-    static String currentCommand = "m";
+    static String currentCommand = "m";//Start type(manual/auto)
     static boolean asd = true;
 
     public static void main(String[] args) throws Exception {
