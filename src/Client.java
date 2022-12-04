@@ -82,7 +82,7 @@ public class Client {
         }
     }
 
-    static String currentCommand = "m";
+    static String currentCommand = "a";
     static boolean asd = true;
 
     public static void main(String[] args) throws Exception {
@@ -106,7 +106,7 @@ public class Client {
         if(currentCommand.equals("a"))
         {
             System.out.println("Auto");
-            gui.snow.setText("Auto?");
+            gui.snow.setText("Auto");
             ip=iph.ipautoset();
             System.out.println("Autodetected ip: "+ip);
             gui.snow.setText("Autodetected ip: "+ip);
