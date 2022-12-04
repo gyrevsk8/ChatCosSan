@@ -2,7 +2,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 
-public class Mss implements LoggerF {
+public class Logger implements LoggerF {
     public void setNewLogMessage(String name, String text){
     try (FileWriter writer = new FileWriter("Log.txt", true))
     {

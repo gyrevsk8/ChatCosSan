@@ -9,7 +9,7 @@ public class Client {
     private BufferedWriter bufferedWriter;
     private String username;
 
-    Mss mss = new Mss();
+    Logger logger = new Logger();
    // IPGet ipg = new IPGet();
     public Client(Socket socket, String username) {
        try {
@@ -39,7 +39,7 @@ public class Client {
             while (socket.isConnected()) {
                 String messageToSend = scanner.nextLine();
                 bufferedWriter.write(username + ": " + messageToSend);
-                mss.setNewLogMessage(username, messageToSend);
+                logger.setNewLogMessage(username, messageToSend);
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
             }
@@ -100,11 +100,16 @@ public class Client {
         if(currentCommand.equals("m")) {
 
             System.out.println("Manual");
+            gui.snow.setText("Manual");
             ip = iph.ipset();
         }
         if(currentCommand.equals("a"))
         {
+            System.out.println("Auto");
+            gui.snow.setText("Auto?");
             ip=iph.ipautoset();
+            System.out.println("Autodetected ip: "+ip);
+            gui.snow.setText("Autodetected ip: "+ip);
         }
 
 

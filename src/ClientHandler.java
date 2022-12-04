@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class ClientHandler implements ClientF{
+public class ClientHandler implements Runnable,ClientF{
 
     public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>(); // Для того чтобы прокрутить всех
                                                                                 // (для последующей отправки сообщений через BufferWriter)
