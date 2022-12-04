@@ -17,18 +17,21 @@ public class IPHandler {
     }
     public String ipautoset()throws Exception{
         String subnet = "192.168.0";
+
         String ip[]=new String[256];
         int iter = 0;
         ClientGUI gui = new ClientGUI();
-        gui.setBounds(400,150,250,100);
+        gui.setBounds(400,150,250,100);     //переопределение gui для хэндлера
         for(int i=0;i<255;i++){
 
-            gui.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-            gui.button.show(false);
-            gui.input.show(false);
-            gui.show(true);
-            gui.setLayout(new GridLayout(0,1,0,1));
-            //gui.setBounds();
+            gui.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);//переопределение gui для хэндлера
+            gui.button.show(false);                         //переопределение gui для хэндлера
+            gui.input.show(false);                          //переопределение gui для хэндлера
+            gui.show(true);                                 //переопределение gui для хэндлера
+            gui.setLayout(new GridLayout(0,1,0,1));//переопределение gui для хэндлера
+            //gui.setBounds();                                 //переопределение gui для хэндлера
+
+
             int timeout = 10;
             String host = subnet+"."+i;
             //gui.snow.setText("IP in proggress:"+host);
