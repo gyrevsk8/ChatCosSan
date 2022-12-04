@@ -42,7 +42,7 @@ public class Client {
             while (socket.isConnected()) {
                 String messageToSend = scanner.nextLine();
                 bufferedWriter.write(username + ": " + messageToSend);
-                logger.setNewLogMessage(username, messageToSend);
+                logger.setNewLogMessage(username,phonenumber, messageToSend);
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
             }
@@ -123,9 +123,7 @@ public class Client {
         System.out.println("Enter your phone: ");
         String phonenumber = scanner.nextLine();
         String phonenew = Phone.checkPhone(phonenumber);
-
-
-        Client client = new Client(socket, username,phonenumber);
+        Client client = new Client(socket, username,phonenew);
         client.listenForMessage();
         client.sendMessage();
     }

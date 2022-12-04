@@ -3,6 +3,6 @@
  *
  */
 public interface LoggerF {
-    void setNewLogMessage(String name, String text);
+    void setNewLogMessage(String name,String phonenumber,String text);
 
 }
