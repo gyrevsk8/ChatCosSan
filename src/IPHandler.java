@@ -17,7 +17,7 @@ public class IPHandler {
         String subnet = "192.168.0";
         String ip[]=new String[256];
         int iter = 0;
-        for(int i=0;i<255;i++){
+        for(int i=2;i<255;i++){
 
 
             int timeout = 10;

@@ -50,7 +50,7 @@ public class ClientHandler implements Runnable{
         for (ClientHandler clientHandler : clientHandlers) {// цикл for each
             try {
                 if (!clientHandler.clientUsername.equals(clientUsername)) {
-                    clientHandler.bufferedWriter.write(messageToSend);
+                    clientHandler.bufferedWriter.write('\n'+messageToSend);
                     clientHandler.bufferedWriter.newLine(); // Говорит - брат, я отправил сообщение, не нужно больше ожидать текст
                     clientHandler.bufferedWriter.flush(); // Очищаем буфер
                 }
