@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -22,6 +23,7 @@ public class IPHandler {
         gui.setBounds(400,150,250,100);
         for(int i=0;i<255;i++){
 
+            gui.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
             gui.button.show(false);
             gui.input.show(false);
             gui.show(true);
@@ -42,7 +44,6 @@ public class IPHandler {
             }
             else{
                 gui.snow.setForeground(Color.RED);
-                gui.snow.setForeground(Color.RED);
                 gui.snow.setText("IP is closed:"+host);
                //gui.snow.setForeground(Color.black);
 
@@ -56,6 +57,9 @@ public class IPHandler {
                 return ip[i];
             }
             catch (UnknownHostException e){
+                continue;
+            }
+            finally {
                 continue;
             }
         }
