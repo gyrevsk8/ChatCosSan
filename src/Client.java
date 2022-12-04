@@ -9,9 +9,11 @@ public class Client {
     private BufferedWriter bufferedWriter;
     private String username;
 
+    private String phonenumber;
+
     Logger logger = new Logger();
    // IPGet ipg = new IPGet();
-    public Client(Socket socket, String username) {
+    public Client(Socket socket, String username,String phonenumber) {
        try {
            this.socket = socket;
 
@@ -23,6 +25,7 @@ public class Client {
            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
            
            this.username = username;
+           this.phonenumber = phonenumber;
        } catch (IOException e) {
            closeEverything(socket, bufferedReader, bufferedWriter);
        }
@@ -82,7 +85,7 @@ public class Client {
         }
     }
 
-    static String currentCommand = "m";//Start type(manual/auto)
+    static String currentCommand = "m";
     static boolean asd = true;
 
     public static void main(String[] args) throws Exception {
@@ -117,7 +120,12 @@ public class Client {
         Socket socket = new Socket(ip, 1234);
         System.out.println("Enter your username: ");
         String username = scanner.nextLine();
-        Client client = new Client(socket, username);
+        System.out.println("Enter your phone: ");
+        String phonenumber = scanner.nextLine();
+        String phonenew = Phone.checkPhone(phonenumber);
+
+
+        Client client = new Client(socket, username,phonenumber);
         client.listenForMessage();
         client.sendMessage();
     }
