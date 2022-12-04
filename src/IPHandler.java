@@ -19,6 +19,7 @@ public class IPHandler {
         String ip[]=new String[256];
         int iter = 0;
         ClientGUI gui = new ClientGUI();
+        gui.setBounds(400,150,250,100);
         for(int i=0;i<255;i++){
 
             gui.button.show(false);
@@ -33,12 +34,14 @@ public class IPHandler {
             if(InetAddress.getByName(host).isReachable(timeout)){
                 System.out.println(host+" is reachable");
                 gui.snow.setForeground(Color.GREEN);
+                gui.snow.setForeground(Color.GREEN);
                 gui.snow.setText("IP in access:"+host);
                 gui.snow.setForeground(Color.black);
                 ip[iter]=host;
                 iter++;
             }
             else{
+                gui.snow.setForeground(Color.RED);
                 gui.snow.setForeground(Color.RED);
                 gui.snow.setText("IP is closed:"+host);
                //gui.snow.setForeground(Color.black);
