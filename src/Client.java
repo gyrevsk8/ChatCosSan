@@ -3,6 +3,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Client {
 
@@ -84,22 +85,33 @@ public class Client {
         }
     }
 
-    static String currentCommand = "";
-    public static void main(String[] args) throws IOException {
+    static String currentCommand = "m";
+    static boolean asd = true;
 
+    public static void main(String[] args) throws Exception {
+        IPHandler iph = new IPHandler();
         Scanner scanner = new Scanner(System.in);
-
-
         System.out.println("Manual or Auto?");
+
+
         ClientGUI gui = new ClientGUI();
+        gui.snow.setText("Manual or Auto?");
         gui.setVisible(true);
+        String ip = new String();
 
 
+        if(currentCommand.equals("m")) {
 
-        System.out.println("IP:");
-        String ip = scanner.nextLine();
-        System.out.println(ip);
+            System.out.println("Manual");
+            ip = iph.ipset();
+        }
+        if(currentCommand.equals("a"))
+        {
+            ip=iph.ipautoset();
+        }
 
+
+        System.out.println("ip");
         Socket socket = new Socket(ip, 1234);
         System.out.println("Enter your username: ");
         String username = scanner.nextLine();
@@ -108,11 +120,6 @@ public class Client {
         client.sendMessage();
     }
 
-    private static void tw() {
-            while (currentCommand.equals(""))
-            {
-                tw();
-            }
 
-    }
+
 }
