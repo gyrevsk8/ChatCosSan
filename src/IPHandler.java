@@ -40,7 +40,7 @@ public class IPHandler {
             }
             else{
                 gui.snow.setForeground(Color.RED);
-                gui.snow.setText("IP in access:"+host);
+                gui.snow.setText("IP is closed:"+host);
                //gui.snow.setForeground(Color.black);
 
             }
