@@ -2,6 +2,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
 
 public class DatabaseHandler extends Configs{
 
@@ -55,11 +56,29 @@ public class DatabaseHandler extends Configs{
 
     }
 
+    public ResultSet getUsername(String username, String password){
+        ResultSet resSet = null;
 
+        String select = "SELECT * FROM " + Const.USER_TABLE +
+                Const.USER_NAME + "=? AND " + Const.USER_PASS + "=?";
 
-    public static void main(String[] args) {
-        DatabaseHandler dbHandler = new DatabaseHandler();
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(select);
+            prSt.setString(1, username);
+            prSt.setString(2, password);
 
-        dbHandler.logMessage("Anton","Yo, man");
+            resSet = prSt.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return resSet;
     }
+    
+//    public static void main(String[] args) {
+//        DatabaseHandler dbHandler = new DatabaseHandler();
+//
+//        dbHandler.logMessage("Anton","Yo, man");
+//    }
 }
