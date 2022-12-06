@@ -85,7 +85,7 @@ public class Client {
         }
     }
 
-    static String currentCommand = "m";
+    static String currentCommand = "a";
     static boolean asd = true;
 
     public static void main(String[] args) throws Exception {
@@ -95,7 +95,7 @@ public class Client {
 
 
         ClientGUI gui = new ClientGUI();
-        gui.snow.setText("Manual or Auto?");
+        gui.johnsnow.setText("Manual or Auto?");
         gui.setVisible(true);
         String ip = new String();
 
@@ -103,17 +103,18 @@ public class Client {
         if(currentCommand.equals("m")) {
 
             System.out.println("Manual");
-            gui.snow.setText("Manual");
+            gui.johnsnow.setText("Manual");
             ip = iph.ipset();
         }
         if(currentCommand.equals("a"))
         {
             System.out.println("Auto");
-            gui.snow.setText("Auto");
+            gui.johnsnow.setText("Auto");
             ip=iph.ipautoset();
             System.out.println("Autodetected ip: "+ip);
-            gui.snow.setText("Autodetected ip: "+ip);
+            gui.johnsnow.setText("Autodetected ip: "+ip);
         }
+
 
 
         System.out.println("ip");
