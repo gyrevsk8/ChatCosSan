@@ -63,7 +63,7 @@ public class ClientGUI extends JFrame {
         {
            messege+=input.getText();
            textArea.setText( textArea.getText() + "<p>" + input.getText());
-           scrollPane.setViewport(scrollPane.setViewport(););
+
             System.out.println(textArea.getText());
            System.out.println(messege);
            Client.currentCommand = messege;
