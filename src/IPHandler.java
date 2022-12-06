@@ -10,6 +10,7 @@ public class IPHandler {
     public String ipset() throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("IP:");
+
         ///String ip = scanner.nextLine();
         Client.sleepe();
         String ip = Client.currentCommand;

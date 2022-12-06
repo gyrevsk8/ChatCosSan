@@ -104,7 +104,7 @@ public class Client {
         if(currentCommand.equals("m")) {
 
             System.out.println("Manual");
-            gui.johnsnow.setText("Manual");
+            gui.johnsnow.setText("Manual \n IP:");
             ip = iph.ipset();
         }
         if(currentCommand.equals("a"))
@@ -129,11 +129,14 @@ public class Client {
         String username = currentCommand;
         System.out.println(currentCommand);//отладка
 
-        System.out.println("Enter your phone: ");//отладка
+        System.out.println("Enter your phone: ");//отладка  //
+       gui.johnsnow.setText("Enter your phone: ");
         sleepe();
+
         // String phonenumber = scanner.nextLine();
         String phonenumber = currentCommand;
         String phonenew = Phone.checkPhone(phonenumber);
+        gui.johnsnow.setText("");
         Client client = new Client(socket, username,phonenew);
         client.listenForMessage();
         client.sendMessage();

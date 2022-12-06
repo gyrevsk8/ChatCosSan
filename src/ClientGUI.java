@@ -65,7 +65,7 @@ public class ClientGUI extends JFrame {
            textArea.setText( textArea.getText() + "<p>" + input.getText());
             JScrollBar vertical = scrollPane.getVerticalScrollBar();
             vertical.setValue( vertical.getMaximum() );
-            System.out.println(textArea.getText());
+            //System.out.println(textArea.getText());
            System.out.println(messege);
            Client.currentCommand = messege;
            input.setText("");
