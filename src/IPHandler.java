@@ -7,11 +7,12 @@ import java.util.Scanner;
 
 public class IPHandler {
 
-    public String ipset()
-    {
+    public String ipset() throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("IP:");
-        String ip = scanner.nextLine();
+        ///String ip = scanner.nextLine();
+        Client.sleepe();
+        String ip = Client.currentCommand;
         System.out.println(ip);
         return ip;
     }

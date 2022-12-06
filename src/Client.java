@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Client {
 
@@ -98,7 +99,7 @@ public class Client {
         gui.johnsnow.setText("Manual or Auto?");
         gui.setVisible(true);
         String ip = new String();
-
+        sleepe();// этот метод усыпляет поток
 
         if(currentCommand.equals("m")) {
 
@@ -116,19 +117,34 @@ public class Client {
         }
 
 
-
-        System.out.println("ip");
+        System.out.println("IP seted");//отладка
+        gui.johnsnow.setText("IP seted");
         Socket socket = new Socket(ip, 1234);
+
+
         System.out.println("Enter your username: ");
-        String username = scanner.nextLine();
-        System.out.println("Enter your phone: ");
-        String phonenumber = scanner.nextLine();
+        gui.johnsnow.setText("Enter your username: ");
+        sleepe();
+       // String username = scanner.nextLine();
+        String username = currentCommand;
+        System.out.println(currentCommand);//отладка
+
+        System.out.println("Enter your phone: ");//отладка
+        sleepe();
+        // String phonenumber = scanner.nextLine();
+        String phonenumber = currentCommand;
         String phonenew = Phone.checkPhone(phonenumber);
         Client client = new Client(socket, username,phonenew);
         client.listenForMessage();
         client.sendMessage();
     }
 
-
+static void sleepe() throws InterruptedException {
+    while(asd)
+    {
+        TimeUnit.SECONDS.sleep(1);
+    }
+    asd = true;//после его использования всегда должен стоять asd=true;
+}
 
 }
