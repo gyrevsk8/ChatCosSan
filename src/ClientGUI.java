@@ -4,33 +4,54 @@ import java.awt.event.*;
 
 public class ClientGUI extends JFrame {
     JButton button = new JButton("Enter");
-    JTextField input = new JTextField("",15);
-    JLabel textArea = new JLabel();
+    JTextArea input = new JTextArea(1,15);
+    JLabel textArea = new JLabel("DFSDFSDFGSDFG");
 
     JLabel johnsnow = new JLabel();
     String messege = "";
-
+    final JScrollPane scrollPane = new JScrollPane(textArea);
 
     public ClientGUI()
     {
 
         super("Client ");
-        this.setBounds(150, 150, 280, 120);
+        this.setBounds(150, 150, 280, 200);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Container container = this.getContentPane();
-
-        container.setLayout(new GridLayout(4, 1, 2, 2));
+        scrollPane.setMinimumSize(new Dimension(280,80));
+        scrollPane.setPreferredSize(new Dimension(280,80));
+       container.setLayout(new GridBagLayout());
+       GridBagConstraints constraints = new GridBagConstraints();
+        // container.setLayout(new FlowLayout(FlowLayout.));
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.weightx = 0.5;
+        constraints.gridy   = 0  ;
         johnsnow.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        textArea.setFont(new Font("Times New Roman", Font.ITALIC, 16));
+        constraints.gridwidth = 2;
+        constraints.gridy = 0;
+        constraints.gridx = 2;
+        container.add(scrollPane,constraints);
 
-        textArea.setMinimumSize(new Dimension(60,60));
-        textArea.setPreferredSize(new Dimension(40,40));
-        textArea.setMaximumSize(new Dimension(40,40));
+        constraints.gridx = 2;
+        constraints.gridy = 4;
+        johnsnow.setPreferredSize(new Dimension(280,40));
+        container.add(johnsnow,constraints);
 
-        container.add(textArea);
-        container.add(johnsnow);
-        container.add(input);
-        container.add(button);
+        constraints.gridx = 2;
+        constraints.gridy = 5;
+        container.add(input,constraints);
+
+        constraints.ipady     = 1;   // кнопка высокая
+        constraints.ipadx = 1;
+        constraints.weightx   = 0.0;
+        constraints.gridwidth = 1;    // размер кнопки в две ячейки
+        constraints.gridx     = 3;    // нулевая ячейка по горизонтали
+        constraints.gridy     = 7;    // первая ячейка по вертикали
+        container.add(button, constraints);
+
         button.addActionListener(new ButtonListener());
+        container.revalidate();
     }
 
     class ButtonListener implements ActionListener
@@ -38,7 +59,8 @@ public class ClientGUI extends JFrame {
         public void actionPerformed(ActionEvent e)
         {
            messege+=input.getText();
-            textArea.setText(textArea.getText()+'\n'+input.getText());
+           textArea.setText("<html>"+ textArea.getText() + "<br>" + input.getText());
+            System.out.println(textArea.getText());
            System.out.println(messege);
            Client.currentCommand = messege;
            input.setText("");

@@ -29,7 +29,7 @@ public class IPHandler {
             gui.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);//переопределение gui для хэндлера
             gui.button.show(false);                         //переопределение gui для хэндлера
             gui.input.show(false);                          //переопределение gui для хэндлера
-                                            //переопределение gui для хэндлера
+            gui.textArea.show(false);                                 //переопределение gui для хэндлера
             gui.setLayout(new GridLayout(0,1,0,1));//переопределение gui для хэндлера
             //gui.setBounds();                                 //переопределение gui для хэндлера
 
