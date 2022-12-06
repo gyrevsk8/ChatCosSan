@@ -17,9 +17,12 @@ public class ClientGUI extends JFrame {
         super("Client ");
         this.setBounds(150, 150, 280, 200);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        textArea.setText("<html>");
+
         Container container = this.getContentPane();
         scrollPane.setMinimumSize(new Dimension(280,80));
         scrollPane.setPreferredSize(new Dimension(280,80));
+        scrollPane.setWheelScrollingEnabled(true);
        container.setLayout(new GridBagLayout());
        GridBagConstraints constraints = new GridBagConstraints();
         // container.setLayout(new FlowLayout(FlowLayout.));
@@ -59,7 +62,8 @@ public class ClientGUI extends JFrame {
         public void actionPerformed(ActionEvent e)
         {
            messege+=input.getText();
-           textArea.setText("<html>"+ textArea.getText() + "<br>" + input.getText());
+           textArea.setText( textArea.getText() + "<p>" + input.getText());
+           scrollPane.setViewport(scrollPane.setViewport(););
             System.out.println(textArea.getText());
            System.out.println(messege);
            Client.currentCommand = messege;
