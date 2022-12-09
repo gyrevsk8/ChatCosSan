@@ -46,6 +46,7 @@ public class Client {
                 Client.sleepe();
                 String messageToSend =  currentCommand;
                 bufferedWriter.write(username + ": " + messageToSend);
+                gui.textArea.setText(gui.textArea.getText()+"<p>"+username+":"+messageToSend);
                 logger.setNewLogMessage(username,phonenumber, messageToSend);
                 bufferedWriter.newLine();
                 bufferedWriter.flush();

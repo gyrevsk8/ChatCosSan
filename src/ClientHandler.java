@@ -53,7 +53,7 @@ public class ClientHandler implements Runnable,ClientF{
             try {
                 if (!clientHandler.clientUsername.equals(clientUsername)) {
                     clientHandler.bufferedWriter.write('\n'+messageToSend);
-                    Client.gui.textArea.setText(Client.gui.textArea.getText()+"<p>"+messageToSend);
+                    Client.gui.textArea.setText(Client.gui.textArea.getText()+"<p>"+clientUsername+":"+messageToSend);
                     clientHandler.bufferedWriter.newLine(); // Говорит - брат, я отправил сообщение, не нужно больше ожидать текст
                     clientHandler.bufferedWriter.flush(); // Очищаем буфер
                 }
