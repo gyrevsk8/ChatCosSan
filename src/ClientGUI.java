@@ -4,7 +4,7 @@ import java.awt.event.*;
 
 public class ClientGUI extends JFrame {
     JButton button = new JButton("Enter");
-    JTextArea input = new JTextArea(1,15);
+    JTextField input = new JTextField("",15);
     JLabel textArea = new JLabel("DFSDFSDFGSDFG");
 
     JLabel johnsnow = new JLabel();
@@ -73,8 +73,7 @@ public class ClientGUI extends JFrame {
                     messege = "";
 
                     input.setText("");
-                    input.setCaretPosition(0);
-                    input.setCaretPosition(0);
+                   // input.setCaretPosition(0);
                 }
             }
 
