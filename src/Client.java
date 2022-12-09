@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
@@ -41,7 +42,8 @@ public class Client {
 
             Scanner scanner = new Scanner(System.in);
             while (socket.isConnected()) {
-                String messageToSend = scanner.nextLine();
+                Client.sleepe();
+                String messageToSend =  currentCommand;
                 bufferedWriter.write(username + ": " + messageToSend);
                 logger.setNewLogMessage(username,phonenumber, messageToSend);
                 bufferedWriter.newLine();
@@ -49,6 +51,8 @@ public class Client {
             }
         } catch (IOException e) {
             closeEverything(socket, bufferedReader, bufferedWriter);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -62,6 +66,8 @@ public class Client {
                     try {
                         msgFromGroupChat = bufferedReader.readLine(); // Считываем сообщение
                         System.out.println(msgFromGroupChat);
+                        gui.textArea.setAlignmentX(Component.RIGHT_ALIGNMENT);
+                        gui.textArea.setText(gui.textArea.getText()+"<p>"+msgFromGroupChat);
                     } catch (IOException e) {
                         closeEverything(socket, bufferedReader, bufferedWriter);
                     }

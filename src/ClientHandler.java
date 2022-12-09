@@ -27,6 +27,7 @@ public class ClientHandler implements Runnable,ClientF{
             this.clientUsername = bufferedReader.readLine(); // Считываем имя пользователя
             clientHandlers.add(this); // Добавляем пользователя в массив
             broadcastMessage("SERVER: " + clientUsername + " has entered the chat");
+            Client.gui.textArea.setText(Client.gui.textArea.getText()+"<p>"+"SERVER: " + clientUsername + " has entered the chat");
         } catch (IOException e) {
             closeEverything(socket, bufferedReader, bufferedWriter);
         }
