@@ -55,6 +55,13 @@ public class IPHandler {
                 gui.johnsnow.setForeground(Color.black);
                 ip[iter] = host;
                 iter++;
+                try {
+                    Socket socket = new Socket(ip[i], 1234);
+                    return host;
+                } catch (UnknownHostException e) {
+                    continue;
+                }
+
             } else {
                 gui.johnsnow.setForeground(Color.RED);
                 gui.johnsnow.setText("IP is closed:" + host);

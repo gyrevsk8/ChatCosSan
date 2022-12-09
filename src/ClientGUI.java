@@ -18,7 +18,8 @@ public class ClientGUI extends JFrame {
         this.setBounds(150, 150, 480, 260);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         textArea.setText("<html>");
-
+        this.setIconImage(new javax.swing.ImageIcon("wifi.png").getImage());
+        //input.setBackground(Color.GRAY);
         Container container = this.getContentPane();
         scrollPane.setMinimumSize(new Dimension(280,150));
         scrollPane.setPreferredSize(new Dimension(280,160));
@@ -59,24 +60,26 @@ public class ClientGUI extends JFrame {
         input.addKeyListener(new KeyListener() {
 
             public void keyPressed(KeyEvent e) {
-
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
-                messege+=input.getText();
-                textArea.setText( textArea.getText() + "<p>" + input.getText());
-                JScrollBar vertical = scrollPane.getVerticalScrollBar();
-                vertical.setValue( vertical.getMaximum() );
-                //System.out.println(textArea.getText());
-                System.out.println(messege);
-                Client.currentCommand = messege;
-                input.setText("");
-                Client.asd = false;
-                messege = "";
-                input.setText("");}
+                    messege+=input.getText();
+                    textArea.setText( textArea.getText() + "<p>" + input.getText());
+                    JScrollBar vertical = scrollPane.getVerticalScrollBar();
+                    vertical.setValue( vertical.getMaximum() );
+                    //System.out.println(textArea.getText());
+                    System.out.println(messege);
+                    Client.currentCommand = messege;
 
+                    Client.asd = false;
+                    messege = "";
 
+                    input.setText("");
+                    input.setCaretPosition(0);
+                    input.setCaretPosition(0);
+                }
             }
 
             public void keyReleased(KeyEvent e) {
+
 
 
             }
@@ -105,6 +108,7 @@ public class ClientGUI extends JFrame {
            input.setText("");
            Client.asd = false;
            messege = "";
+            input.setCaretPosition(0);
 
         }
     }
