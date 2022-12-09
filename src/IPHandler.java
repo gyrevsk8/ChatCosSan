@@ -30,11 +30,14 @@ public class IPHandler {
         String ip[] = new String[256];
         int iter = 0;
         ClientGUI gui = new ClientGUI();
+
         gui.setBounds(400, 150, 250, 100);
         gui.show(true);     //переопределение gui для хэндлера
         for (int i = 0; i < 254; i++) {
 
+
             gui.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);//переопределение gui для хэндлера
+            gui.setTitle("IP Handler");
             gui.button.show(false);                         //переопределение gui для хэндлера
             gui.input.show(false);                          //переопределение gui для хэндлера
             gui.textArea.show(false);                                 //переопределение gui для хэндлера
