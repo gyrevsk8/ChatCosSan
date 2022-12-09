@@ -68,10 +68,10 @@ public class Client {
                         msgFromGroupChat = bufferedReader.readLine(); // Считываем сообщение
                         System.out.println(msgFromGroupChat);
                         JScrollBar vertical = gui.scrollPane.getVerticalScrollBar();
-                        gui.textArea.setAlignmentX(gui.textArea.RIGHT_ALIGNMENT);
+                        gui.textArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
                         vertical.setValue( vertical.getMaximum() );
                         gui.textArea.setText(gui.textArea.getText()+"<p>"+msgFromGroupChat);
-                        gui.textArea.setAlignmentX(gui.textArea.LEFT_ALIGNMENT);
+                        gui.textArea.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
                         vertical.setValue( vertical.getMaximum() );
                     } catch (IOException e) {
                         closeEverything(socket, bufferedReader, bufferedWriter);

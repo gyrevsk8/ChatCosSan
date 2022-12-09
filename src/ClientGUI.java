@@ -56,6 +56,37 @@ public class ClientGUI extends JFrame {
         container.add(button, constraints);
 
         button.addActionListener(new ButtonListener());
+        input.addKeyListener(new KeyListener() {
+
+            public void keyPressed(KeyEvent e) {
+
+                if(e.getKeyCode()==KeyEvent.VK_ENTER){
+                messege+=input.getText();
+                textArea.setText( textArea.getText() + "<p>" + input.getText());
+                JScrollBar vertical = scrollPane.getVerticalScrollBar();
+                vertical.setValue( vertical.getMaximum() );
+                //System.out.println(textArea.getText());
+                System.out.println(messege);
+                Client.currentCommand = messege;
+                input.setText("");
+                Client.asd = false;
+                messege = "";
+                input.setText("");}
+
+
+            }
+
+            public void keyReleased(KeyEvent e) {
+
+
+            }
+
+            public void keyTyped(KeyEvent e) {
+
+
+            }
+
+        });
         container.revalidate();
     }
 
@@ -63,6 +94,7 @@ public class ClientGUI extends JFrame {
     {
         public void actionPerformed(ActionEvent e)
         {
+
            messege+=input.getText();
            textArea.setText( textArea.getText() + "<p>" + input.getText());
             JScrollBar vertical = scrollPane.getVerticalScrollBar();
@@ -76,6 +108,8 @@ public class ClientGUI extends JFrame {
 
         }
     }
+
+
 
 
 }
