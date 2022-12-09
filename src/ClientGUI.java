@@ -1,8 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 
 public class ClientGUI extends JFrame {
+
     JButton button = new JButton("Enter");
     JTextField input = new JTextField("",15);
     JLabel textArea = new JLabel("DFSDFSDFGSDFG");
@@ -15,23 +17,29 @@ public class ClientGUI extends JFrame {
     {
 
         super("Client ");
+        ImageIcon icon = new ImageIcon("C:\\Users\\Jewsus Christ\\IdeaProjects\\ChatCosSan\\src\\wp.jpg");
+        icon = new ImageIcon(icon.getImage().getScaledInstance(300,150, BufferedImage.SCALE_SMOOTH));
+
+     //   textArea.setOpaque(false);
         this.setBounds(150, 150, 480, 260);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         textArea.setText("<html>");
-        this.setIconImage(new javax.swing.ImageIcon("wifi.png").getImage());
+        //this.setIconImage(new javax.swing.ImageIcon("C:\\Users\\Jewsus Christ\\IdeaProjects\\ChatCosSan\\src\\wp.jpg").getImage());
         //input.setBackground(Color.GRAY);
         Container container = this.getContentPane();
         scrollPane.setMinimumSize(new Dimension(280,150));
         scrollPane.setPreferredSize(new Dimension(280,160));
         scrollPane.setWheelScrollingEnabled(true);
        container.setLayout(new GridBagLayout());
+
+        //textArea.setIcon(icon);
        GridBagConstraints constraints = new GridBagConstraints();
         // container.setLayout(new FlowLayout(FlowLayout.));
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.weightx = 0.5;
         constraints.gridy   = 0  ;
         johnsnow.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        textArea.setFont(new Font("Times New Roman", Font.ITALIC, 16));
+        textArea.setFont(new Font("Times New Roman", Font.BOLD, 18));
         constraints.gridwidth = 2;
         constraints.gridy = 0;
         constraints.gridx = 2;
@@ -116,3 +124,4 @@ public class ClientGUI extends JFrame {
 
 
 }
+
