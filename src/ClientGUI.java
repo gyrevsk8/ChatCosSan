@@ -62,7 +62,7 @@ public class ClientGUI extends JFrame {
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
                     messege+=input.getText();
-                    textArea.setText( textArea.getText() + "<p>" + input.getText());
+                   // textArea.setText( textArea.getText() + "<p>" + input.getText());
                     JScrollBar vertical = scrollPane.getVerticalScrollBar();
                     vertical.setValue( vertical.getMaximum() );
                     //System.out.println(textArea.getText());
@@ -99,7 +99,7 @@ public class ClientGUI extends JFrame {
         {
 
            messege+=input.getText();
-           textArea.setText( textArea.getText() + "<p>" + input.getText());
+           //textArea.setText( textArea.getText() + "<p>" + input.getText());
             JScrollBar vertical = scrollPane.getVerticalScrollBar();
             vertical.setValue( vertical.getMaximum() );
             //System.out.println(textArea.getText());
