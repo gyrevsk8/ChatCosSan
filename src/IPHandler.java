@@ -1,8 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.*;
+import java.util.Enumeration;
 import java.util.Scanner;
 
 public class IPHandler {
@@ -71,6 +70,30 @@ public class IPHandler {
         }
 
     return "192.168.0.0";
+    }
+    public static String getLocalIpAddress() {
+        String ip = "";
+        try {
+            Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+            while (interfaces.hasMoreElements()) {
+                NetworkInterface iface = interfaces.nextElement();
+                // filters out 127.0.0.1 and inactive interfaces
+                if (iface.isLoopback() || !iface.isUp() || iface.isVirtual())
+                    continue;
+
+
+                Enumeration<InetAddress> addresses = iface.getInetAddresses();
+                while (addresses.hasMoreElements()) {
+                    InetAddress addr = addresses.nextElement();
+                    if (addr instanceof Inet4Address) {
+                        ip = addr.getHostAddress();
+                    }
+                }
+            }
+        } catch (SocketException e) {
+            throw new RuntimeException(e);
+        }
+        return ip;
     }
 
 }
