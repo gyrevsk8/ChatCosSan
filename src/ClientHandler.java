@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class ClientHandler implements Runnable,ClientF{
             try {
                 if (!clientHandler.clientUsername.equals(clientUsername)) {
                     clientHandler.bufferedWriter.write('\n'+messageToSend);
+                    Client.gui.textArea.setText(Client.gui.textArea.getText()+"<p>"+messageToSend);
                     clientHandler.bufferedWriter.newLine(); // Говорит - брат, я отправил сообщение, не нужно больше ожидать текст
                     clientHandler.bufferedWriter.flush(); // Очищаем буфер
                 }

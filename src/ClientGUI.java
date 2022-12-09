@@ -15,13 +15,13 @@ public class ClientGUI extends JFrame {
     {
 
         super("Client ");
-        this.setBounds(150, 150, 280, 200);
+        this.setBounds(150, 150, 480, 260);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         textArea.setText("<html>");
 
         Container container = this.getContentPane();
-        scrollPane.setMinimumSize(new Dimension(280,80));
-        scrollPane.setPreferredSize(new Dimension(280,80));
+        scrollPane.setMinimumSize(new Dimension(280,150));
+        scrollPane.setPreferredSize(new Dimension(280,160));
         scrollPane.setWheelScrollingEnabled(true);
        container.setLayout(new GridBagLayout());
        GridBagConstraints constraints = new GridBagConstraints();
@@ -38,6 +38,8 @@ public class ClientGUI extends JFrame {
 
         constraints.gridx = 2;
         constraints.gridy = 4;
+        johnsnow.setBackground(Color.BLUE);
+        johnsnow.setForeground(Color.PINK);
         johnsnow.setPreferredSize(new Dimension(280,40));
         container.add(johnsnow,constraints);
 
@@ -49,8 +51,8 @@ public class ClientGUI extends JFrame {
         constraints.ipadx = 1;
         constraints.weightx   = 0.0;
         constraints.gridwidth = 1;    // размер кнопки в две ячейки
-        constraints.gridx     = 3;    // нулевая ячейка по горизонтали
-        constraints.gridy     = 7;    // первая ячейка по вертикали
+        constraints.gridx     = 4;    // нулевая ячейка по горизонтали
+        constraints.gridy     = 5;    // первая ячейка по вертикали
         container.add(button, constraints);
 
         button.addActionListener(new ButtonListener());

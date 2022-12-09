@@ -86,16 +86,17 @@ public class Client {
         }
     }
 
+
     static String currentCommand = "a";
     static boolean asd = true;
-
+    static ClientGUI gui = new ClientGUI();
     public static void main(String[] args) throws Exception {
         IPHandler iph = new IPHandler();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Manual or Auto?");
 
 
-        ClientGUI gui = new ClientGUI();
+
         gui.johnsnow.setText("Manual or Auto?");
         gui.setVisible(true);
         String ip = new String();
