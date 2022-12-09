@@ -1,8 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.net.*;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Scanner;
+
 
 public class IPHandler {
 
@@ -16,85 +19,82 @@ public class IPHandler {
         System.out.println(ip);
         return ip;
     }
-    public String ipautoset()throws Exception{
-        String subnet = "192.168.0";
 
-        String ip[]=new String[256];
+    public String ipautoset() throws Exception {
+        String ipFull=getLocalIpAddress();
+        String [] ipArray = ipFull.split("\\.");
+        System.out.println(Arrays.toString(ipArray));
+
+        String subnet = ipArray[0]+'.'+ipArray[1]+'.'+ipArray[2];
+
+        String ip[] = new String[256];
         int iter = 0;
         ClientGUI gui = new ClientGUI();
-        gui.setBounds(400,150,250,100);
+        gui.setBounds(400, 150, 250, 100);
         gui.show(true);     //переопределение gui для хэндлера
-        for(int i=0;i<254;i++){
+        for (int i = 0; i < 254; i++) {
 
             gui.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);//переопределение gui для хэндлера
             gui.button.show(false);                         //переопределение gui для хэндлера
             gui.input.show(false);                          //переопределение gui для хэндлера
             gui.textArea.show(false);                                 //переопределение gui для хэндлера
             gui.scrollPane.show(false);
-            gui.setLayout(new GridLayout(0,1,0,1));//переопределение gui для хэндлера
+            gui.setLayout(new GridLayout(0, 1, 0, 1));//переопределение gui для хэндлера
             //gui.setBounds();                                 //переопределение gui для хэндлера
 
 
             int timeout = 10;
-            String host = subnet+"."+i;
+            String host = subnet + "." + i;
             //gui.johnsnow.setText("IP in proggress:"+host);
 
-            if(InetAddress.getByName(host).isReachable(timeout)){
-                System.out.println(host+" is reachable");
+            if (InetAddress.getByName(host).isReachable(timeout)) {
+                System.out.println(host + " is reachable");
                 gui.johnsnow.setForeground(Color.GREEN);
                 gui.johnsnow.setForeground(Color.GREEN);
-                gui.johnsnow.setText("IP in access:"+host);
+                gui.johnsnow.setText("IP in access:" + host);
                 gui.johnsnow.setForeground(Color.black);
-                ip[iter]=host;
+                ip[iter] = host;
                 iter++;
-            }
-            else{
+            } else {
                 gui.johnsnow.setForeground(Color.RED);
-                gui.johnsnow.setText("IP is closed:"+host);
-               //gui.johnsnow.setForeground(Color.black);
+                gui.johnsnow.setText("IP is closed:" + host);
+                //gui.johnsnow.setForeground(Color.black);
 
             }
         }
 
-        for(int i=0;i<iter;i++)
-        {
+        for (int i = 0; i < iter; i++) {
             try {
-                Socket socket = new Socket(ip[i],1234);
+                Socket socket = new Socket(ip[i], 1234);
                 return ip[i];
-            }
-            catch (UnknownHostException e){
+            } catch (UnknownHostException e) {
                 continue;
-            }
-            finally {
+            } finally {
                 continue;
             }
         }
 
-    return "192.168.0.0";
+        return getLocalIpAddress();
     }
+
     public static String getLocalIpAddress() {
-        String ip = "";
+        InetAddress ip = null;
+        String hostname;
+        String ipFinal = null;
+        String ipString;
+
         try {
-            Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-            while (interfaces.hasMoreElements()) {
-                NetworkInterface iface = interfaces.nextElement();
-                // filters out 127.0.0.1 and inactive interfaces
-                if (iface.isLoopback() || !iface.isUp() || iface.isVirtual())
-                    continue;
-
-
-                Enumeration<InetAddress> addresses = iface.getInetAddresses();
-                while (addresses.hasMoreElements()) {
-                    InetAddress addr = addresses.nextElement();
-                    if (addr instanceof Inet4Address) {
-                        ip = addr.getHostAddress();
-                    }
-                }
-            }
-        } catch (SocketException e) {
-            throw new RuntimeException(e);
+            ip = InetAddress.getLocalHost();
+            hostname = ip.getHostName();
+            int lengthOfHostname = hostname.length();
+            ipString = String.valueOf(ip);
+            StringBuffer stringBuffer = new StringBuffer(ipString);
+            ipFinal=ipString.substring(lengthOfHostname+1);
+            System.out.println("Your current IP address :" + ipFinal);
+            System.out.println("Your current Hostname : " + hostname);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
         }
-        return ip;
+        return ipFinal;
     }
-
 }
