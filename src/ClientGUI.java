@@ -17,7 +17,7 @@ public class ClientGUI extends JFrame {
     {
 
         super("Client ");
-        ImageIcon icon = new ImageIcon("C:\\Users\\Jewsus Christ\\IdeaProjects\\ChatCosSan\\src\\wp.jpg");
+        ImageIcon icon = new ImageIcon("C:\\Users\\Jewsus Christ\\IdeaProjects\\ChatCosSan\\src\\wifi.png");
         icon = new ImageIcon(icon.getImage().getScaledInstance(300,150, BufferedImage.SCALE_SMOOTH));
 
      //   textArea.setOpaque(false);
@@ -33,6 +33,7 @@ public class ClientGUI extends JFrame {
        container.setLayout(new GridBagLayout());
 
         //textArea.setIcon(icon);
+        super.setIconImage(icon.getImage());
        GridBagConstraints constraints = new GridBagConstraints();
         // container.setLayout(new FlowLayout(FlowLayout.));
         constraints.fill = GridBagConstraints.HORIZONTAL;
