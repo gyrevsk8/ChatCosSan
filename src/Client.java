@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.net.Socket;
@@ -66,8 +67,12 @@ public class Client {
                     try {
                         msgFromGroupChat = bufferedReader.readLine(); // Считываем сообщение
                         System.out.println(msgFromGroupChat);
-                        gui.textArea.setAlignmentX(Component.RIGHT_ALIGNMENT);
+                        JScrollBar vertical = gui.scrollPane.getVerticalScrollBar();
+                        gui.textArea.setAlignmentX(gui.textArea.RIGHT_ALIGNMENT);
+                        vertical.setValue( vertical.getMaximum() );
                         gui.textArea.setText(gui.textArea.getText()+"<p>"+msgFromGroupChat);
+                        gui.textArea.setAlignmentX(gui.textArea.LEFT_ALIGNMENT);
+                        vertical.setValue( vertical.getMaximum() );
                     } catch (IOException e) {
                         closeEverything(socket, bufferedReader, bufferedWriter);
                     }
@@ -154,6 +159,8 @@ static void sleepe() throws InterruptedException {
     {
         TimeUnit.SECONDS.sleep(1);
     }
+    JScrollBar vertical = gui.scrollPane.getVerticalScrollBar();
+    vertical.setValue( vertical.getMaximum() );
     asd = true;//после его использования всегда должен стоять asd=true;
 }
 
