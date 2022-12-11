@@ -154,8 +154,12 @@ public class ClientGUI extends JFrame {
             if (light) {
               getContentPane().setBackground(Color.BLACK);
               textArea.setBackground(Color.DARK_GRAY);
-              textArea.setForeground(Color.white);
+             textArea.setForeground(Color.white);
               textArea.setOpaque(true);
+                //ImageIcon  i = new ImageIcon("src/wp.jpg");// Получить файлы изображений под соответствующим путем (эта картина должна быть под SRC)
+               // i.setImage(i.getImage().getScaledInstance(textArea.getWidth()-1,textArea.getHeight()-1,Image.SCALE_AREA_AVERAGING));
+                //textArea.setIcon(i);
+               // textArea.setOpaque(true);
 
               scrollPane.setBackground(Color.BLACK);
               scrollPane.setOpaque(true);
@@ -182,6 +186,11 @@ public class ClientGUI extends JFrame {
             {
                 getContentPane().setBackground(Color.WHITE);
 
+                ImageIcon  i = new ImageIcon("src/11.jpg");// Получить файлы изображений под соответствующим путем (эта картина должна быть под SRC)
+                i.setImage(i.getImage().getScaledInstance(textArea.getWidth()-1,textArea.getHeight()-1,Image.SCALE_AREA_AVERAGING));
+
+               // textArea.setIcon(i);
+               // textArea.setOpaque(true);
                 textArea.setBackground(Color.lightGray);
                 textArea.setForeground(Color.BLACK);
                 textArea.setOpaque(true);
