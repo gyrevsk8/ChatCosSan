@@ -9,6 +9,7 @@ import java.io.IOException;
 public class ClientGUI extends JFrame {
 
     protected boolean light = true;
+    JLabel label;
     JButton button = new JButton("Enter");
     JButton outfit = new JButton("☽");
     JTextField input = new JTextField("",15);
@@ -33,6 +34,11 @@ public class ClientGUI extends JFrame {
      //   textArea.setOpaque(false);
         this.setBounds(150, 150, 480, 260);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+
+
+
+
         textArea.setText("<html>");
         textArea.setBackground(Color.lightGray);
         textArea.setOpaque(true);
@@ -56,6 +62,7 @@ public class ClientGUI extends JFrame {
         GridBagConstraints constraints = new GridBagConstraints();
         // container.setLayout(new FlowLayout(FlowLayout.));
         constraints.fill = GridBagConstraints.HORIZONTAL;
+
         constraints.weightx = 0.5;
         constraints.gridy   = 0  ;
         johnsnow.setFont(new Font("Times New Roman", Font.BOLD, 16));
