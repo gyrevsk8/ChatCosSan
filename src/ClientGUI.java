@@ -1,7 +1,9 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class ClientGUI extends JFrame {
 
@@ -15,6 +17,7 @@ public class ClientGUI extends JFrame {
     public JLabel textArea = new JLabel("DFSDFSDFGSDFG");
 
     JLabel johnsnow = new JLabel();
+    JLabel userlist = new JLabel("qwd");
     String messege = "";
     final JScrollPane scrollPane = new JScrollPane(textArea);
     Container container = this.getContentPane();
@@ -49,6 +52,8 @@ public class ClientGUI extends JFrame {
         textArea.setOpaque(true);
         textArea.setPreferredSize(new Dimension(280,250));
 
+        userlist.setPreferredSize(new Dimension(100,250));
+
         auto.addActionListener(new ChoiceListener());
         manual.addActionListener(new ChoiceListener());
 
@@ -59,7 +64,9 @@ public class ClientGUI extends JFrame {
 
         button.setFocusPainted(false);
 
-
+        userlist.setBackground(Color.LIGHT_GRAY);
+       // userlist.setBorder(BorderFactory.createEmptyBorder(1,1,1,1));
+        userlist.setOpaque(true);
 
         scrollPane.setMinimumSize(new Dimension(280,150));
         scrollPane.setPreferredSize(new Dimension(280,260));
@@ -85,9 +92,14 @@ public class ClientGUI extends JFrame {
 
         johnsnow.setPreferredSize(new Dimension(280,40));
         container.add(johnsnow,constraints);
+        constraints.gridx=0;
+        constraints.gridy = 0;
+        //container.add(userlist,constraints);
+
 
         constraints.gridwidth =1;
         constraints.ipadx = 2;
+        constraints.gridx = 2;
         constraints.gridy = 5;
         container.add(auto,constraints);
 
@@ -272,7 +284,15 @@ public class ClientGUI extends JFrame {
         }
     }
 
+void setUserlist (ArrayList<String>clientUsernames)
+{
+   for(int i=0;i<clientUsernames.size();i++)
+    {
+    userlist.setText(clientUsernames.get(i));
+    System.out.println("Client:"+i+" " +clientUsernames.get(i));
+   }
 
+}
 
 
 

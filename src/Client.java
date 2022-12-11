@@ -10,7 +10,7 @@ public class Client {
     private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
-    private String username;
+    private String username ;
 
     private String phonenumber;
 
@@ -34,6 +34,10 @@ public class Client {
        }
     }
 
+    public String getusername()
+    {
+        return username;
+    }
     public void sendMessage() {
         try {
             bufferedWriter.write(username);

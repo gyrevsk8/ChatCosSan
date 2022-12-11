@@ -56,17 +56,18 @@ public class IPHandler {
             if (InetAddress.getByName(host).isReachable(timeout)) {
                 System.out.println(host + " is reachable");
                 gui.johnsnow.setForeground(Color.GREEN);
-                gui.johnsnow.setForeground(Color.GREEN);
                 gui.johnsnow.setText("IP in access:" + host);
-                gui.johnsnow.setForeground(Color.black);
+                //gui.johnsnow.setForeground(Color.black);
                 ip[iter] = host;
                 iter++;
                 try {
-                    Socket socket = new Socket(ip[i], 1234);
+                    Socket socket = new Socket(ip[i], 1234,false);
+                    socket.close();
                     return host;
                 } catch (UnknownHostException e) {
                     continue;
                 }
+
 
             } else {
                 gui.johnsnow.setForeground(Color.RED);

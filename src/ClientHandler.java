@@ -11,8 +11,17 @@ public class ClientHandler implements Runnable,ClientF{
     private Socket socket; // Для установления соединения между клиентом и сервером
     private BufferedReader bufferedReader; // Для того, чтобы считывать отправленные сообщения
     private BufferedWriter bufferedWriter; // Для того, чтобы отправить сообщение клиенту
-    private String clientUsername; // Имя пользователя
+    private String clientUsername ; // Имя пользователя
 
+    ArrayList<String>clientUsernames = new ArrayList<String>(clientHandlers.size());
+    public ArrayList<String> getClientList()
+    {
+        for (ClientHandler clientHandler:clientHandlers) {
+            System.out.println(clientHandler.clientUsername);
+            clientUsernames.add(clientHandler.clientUsername);
+        }
+        return clientUsernames;
+    }
     public ClientHandler(Socket socket) {
         try {
             this.socket = socket;
@@ -27,6 +36,7 @@ public class ClientHandler implements Runnable,ClientF{
             this.clientUsername = bufferedReader.readLine(); // Считываем имя пользователя
             clientHandlers.add(this); // Добавляем пользователя в массив
             broadcastMessage("SERVER: " + clientUsername + " has entered the chat");
+            Client.gui.setUserlist(getClientList());
             Client.gui.textArea.setText(Client.gui.textArea.getText()+"<p>"+"SERVER: " + clientUsername + " has entered the chat");
         } catch (IOException e) {
             closeEverything(socket, bufferedReader, bufferedWriter);
@@ -67,6 +77,8 @@ public class ClientHandler implements Runnable,ClientF{
         clientHandlers.remove(this);
         broadcastMessage("SERVER: " + clientUsername + " has left the chat!");
         Client.gui.textArea.setText(Client.gui.textArea.getText()+"<p>"+"SERVER: " + clientUsername + " has left the chat!");
+        Client.gui.setUserlist(getClientList());
+
     }
 
     public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter) {
