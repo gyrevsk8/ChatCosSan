@@ -1,7 +1,10 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class ClientGUI extends JFrame {
 
@@ -22,8 +25,10 @@ public class ClientGUI extends JFrame {
     {
 
         super("Client ");
-        ImageIcon icon = new ImageIcon("butt.png");
+        ImageIcon icon = new ImageIcon("wp.jpg");
         icon = new ImageIcon(icon.getImage().getScaledInstance(300,150, BufferedImage.SCALE_SMOOTH));
+        ImageIcon finalIcon = icon;
+
 
      //   textArea.setOpaque(false);
         this.setBounds(150, 150, 480, 260);
@@ -31,6 +36,7 @@ public class ClientGUI extends JFrame {
         textArea.setText("<html>");
         textArea.setBackground(Color.lightGray);
         textArea.setOpaque(true);
+
 
         outfit.setBackground(Color.BLACK);
         outfit.setForeground(Color.white);
@@ -155,25 +161,27 @@ public class ClientGUI extends JFrame {
               scrollPane.setOpaque(true);
 
               button.setBackground(Color.black);
-                button.setForeground(Color.WHITE);
+              button.setForeground(Color.WHITE);
               button.setOpaque(true);
 
-                johnsnow.setBackground(Color.DARK_GRAY);
-                johnsnow.setForeground(Color.WHITE);
-                johnsnow.setOpaque(true);
+              johnsnow.setBackground(Color.DARK_GRAY);
+              johnsnow.setForeground(Color.WHITE);
+              johnsnow.setOpaque(true);
 
-                input.setBackground(Color.DARK_GRAY);
-                input.setForeground(Color.WHITE);
-                input.setOpaque(true);
+              input.setBackground(Color.DARK_GRAY);
+              input.setForeground(Color.WHITE);
+              input.setOpaque(true);
 
               outfit.setBackground(Color.WHITE);
               outfit.setForeground(Color.black);
               outfit.setText("☼");
               outfit.setOpaque(true);
-                light = !light;
+
+              light = !light;
             } else
             {
                 getContentPane().setBackground(Color.WHITE);
+
                 textArea.setBackground(Color.lightGray);
                 textArea.setForeground(Color.BLACK);
                 textArea.setOpaque(true);
