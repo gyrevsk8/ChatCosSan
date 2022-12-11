@@ -1,10 +1,7 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class ClientGUI extends JFrame {
 
@@ -12,15 +9,24 @@ public class ClientGUI extends JFrame {
     JLabel label;
     JButton button = new JButton("Enter");
     JButton outfit = new JButton("☽");
+    JButton manual = new JButton("Manual");
+    JButton auto = new JButton("Auto");
     JTextField input = new JTextField("",15);
     public JLabel textArea = new JLabel("DFSDFSDFGSDFG");
 
     JLabel johnsnow = new JLabel();
     String messege = "";
     final JScrollPane scrollPane = new JScrollPane(textArea);
+    Container container = this.getContentPane();
+    GridBagConstraints constraints = new GridBagConstraints();
 
+    void recharge (Container container, GridBagConstraints constraints, int x, int y, JTextField input)
+    {
+        constraints.gridx = x;
+        constraints.gridy = y;
+        container.add(input,constraints);
 
-
+    }
 
     public ClientGUI()
     {
@@ -38,12 +44,13 @@ public class ClientGUI extends JFrame {
         getRootPane().setBorder(BorderFactory.createEmptyBorder(0,5,0,5));
 
 
-
         textArea.setText("<html>");
         textArea.setBackground(Color.lightGray);
         textArea.setOpaque(true);
         textArea.setPreferredSize(new Dimension(280,250));
 
+        auto.addActionListener(new ChoiceListener());
+        manual.addActionListener(new ChoiceListener());
 
         outfit.setBackground(Color.BLACK);
         outfit.setForeground(Color.white);
@@ -52,7 +59,8 @@ public class ClientGUI extends JFrame {
 
         button.setFocusPainted(false);
 
-        Container container = this.getContentPane();
+
+
         scrollPane.setMinimumSize(new Dimension(280,150));
         scrollPane.setPreferredSize(new Dimension(280,260));
         scrollPane.setWheelScrollingEnabled(true);
@@ -60,14 +68,14 @@ public class ClientGUI extends JFrame {
 
         //textArea.setIcon(icon);
         super.setIconImage(icon.getImage());
-        GridBagConstraints constraints = new GridBagConstraints();
+
         // container.setLayout(new FlowLayout(FlowLayout.));
         constraints.fill = GridBagConstraints.HORIZONTAL;
 
         constraints.weightx = 0.5;
         constraints.gridy   = 0  ;
         johnsnow.setFont(new Font("Times New Roman", Font.BOLD, 16));
-        textArea.setFont(new Font("Times New Roman", Font.BOLD, 18));
+        textArea.setFont(new Font("Times New Roman", Font.BOLD, 16));
         constraints.gridwidth = 2;
         constraints.gridx = 2;
         container.add(scrollPane,constraints);
@@ -78,9 +86,15 @@ public class ClientGUI extends JFrame {
         johnsnow.setPreferredSize(new Dimension(280,40));
         container.add(johnsnow,constraints);
 
-        constraints.gridx = 2;
+        constraints.gridwidth =1;
+        constraints.ipadx = 2;
         constraints.gridy = 5;
-        container.add(input,constraints);
+        container.add(auto,constraints);
+
+        constraints.gridwidth = 1;
+        constraints.ipadx = 1;
+        constraints.gridx = 3;
+        container.add(manual,constraints);
 
         constraints.ipady     = 1;   // кнопка высокая
         constraints.ipadx = 1;
@@ -152,6 +166,33 @@ public class ClientGUI extends JFrame {
            Client.asd = false;
            messege = "";
            input.setCaretPosition(0);
+
+        }
+    }
+    class ChoiceListener implements ActionListener
+    {
+        public void actionPerformed(ActionEvent e)
+        {
+            JButton btn = (JButton) e.getSource();
+            if(btn.getText().equals("Manual"))
+            {
+                Client.currentCommand="m";
+                Client.asd = false;
+                container.remove(auto);
+                container.remove(manual);
+                recharge(container,constraints,3,5,input);
+                container.revalidate();
+
+            }
+            if(btn.getText().equals("Auto"))
+            {
+                Client.currentCommand="a";
+                Client.asd = false;
+                container.remove(auto);
+                container.remove(manual);
+                recharge(container,constraints,3,5,input);
+                container.revalidate();
+            }
 
         }
     }

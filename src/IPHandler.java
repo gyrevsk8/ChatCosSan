@@ -38,6 +38,9 @@ public class IPHandler {
 
             gui.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);//переопределение gui для хэндлера
             gui.setTitle("IP Handler");
+            gui.container.remove(gui.auto);
+            gui.container.remove(gui.manual);
+            gui.container.remove(gui.outfit);
             gui.button.show(false);                         //переопределение gui для хэндлера
             gui.input.show(false);                          //переопределение gui для хэндлера
             gui.textArea.show(false);                                 //переопределение gui для хэндлера
