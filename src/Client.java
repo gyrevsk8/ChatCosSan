@@ -69,11 +69,11 @@ public class Client {
                         msgFromGroupChat = bufferedReader.readLine(); // Считываем сообщение
                         System.out.println(msgFromGroupChat);
                         JScrollBar vertical = gui.scrollPane.getVerticalScrollBar();
-                        gui.textArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+                        gui.textArea.setHorizontalAlignment(SwingConstants.RIGHT);
                         gui.textArea.setOpaque(true);
                         vertical.setValue( vertical.getMaximum() );
                         gui.textArea.setText(gui.textArea.getText()+"<p>"+msgFromGroupChat);
-                        gui.textArea.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+                        gui.textArea.setHorizontalAlignment(SwingConstants.LEFT);
                         gui.textArea.setOpaque(true);
                         vertical.setValue( vertical.getMaximum() );
                     } catch (IOException e) {

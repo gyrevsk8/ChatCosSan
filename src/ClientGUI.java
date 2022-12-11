@@ -32,16 +32,17 @@ public class ClientGUI extends JFrame {
 
 
      //   textArea.setOpaque(false);
-        this.setBounds(150, 150, 480, 260);
+        this.setBounds(150, 150, 480, 400);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
+        getRootPane().setBorder(BorderFactory.createEmptyBorder(0,5,0,5));
 
 
 
         textArea.setText("<html>");
         textArea.setBackground(Color.lightGray);
         textArea.setOpaque(true);
+        textArea.setPreferredSize(new Dimension(280,250));
 
 
         outfit.setBackground(Color.BLACK);
@@ -53,7 +54,7 @@ public class ClientGUI extends JFrame {
 
         Container container = this.getContentPane();
         scrollPane.setMinimumSize(new Dimension(280,150));
-        scrollPane.setPreferredSize(new Dimension(280,160));
+        scrollPane.setPreferredSize(new Dimension(280,260));
         scrollPane.setWheelScrollingEnabled(true);
         container.setLayout(new GridBagLayout());
 
@@ -150,7 +151,7 @@ public class ClientGUI extends JFrame {
            input.setText("");
            Client.asd = false;
            messege = "";
-            input.setCaretPosition(0);
+           input.setCaretPosition(0);
 
         }
     }
@@ -159,7 +160,8 @@ public class ClientGUI extends JFrame {
 
         public void actionPerformed(ActionEvent e) {
             if (light) {
-              getContentPane().setBackground(Color.BLACK);
+              getRootPane().setBackground(Color.DARK_GRAY);
+              getContentPane().setBackground(Color.DARK_GRAY);
               textArea.setBackground(Color.DARK_GRAY);
              textArea.setForeground(Color.white);
               textArea.setOpaque(true);
@@ -191,6 +193,7 @@ public class ClientGUI extends JFrame {
               light = !light;
             } else
             {
+                getRootPane().setBackground(Color.WHITE);
                 getContentPane().setBackground(Color.WHITE);
 
                 ImageIcon  i = new ImageIcon("src/11.jpg");// Получить файлы изображений под соответствующим путем (эта картина должна быть под SRC)
