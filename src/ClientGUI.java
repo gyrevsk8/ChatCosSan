@@ -112,6 +112,7 @@ public class ClientGUI extends JFrame {
         constraints.gridx     = 4;    // нулевая ячейка по горизонтали
         constraints.gridy     = 5;    // первая ячейка по вертикали
         container.add(button, constraints);
+        button.show(false);
 
         outfit.addActionListener(new OutfitListener());
         button.addActionListener(new ButtonListener());
@@ -181,6 +182,7 @@ public class ClientGUI extends JFrame {
                 container.remove(auto);
                 container.remove(manual);
                 recharge(container,constraints,3,5,input);
+                button.show(true);
                 container.revalidate();
 
             }
@@ -191,6 +193,7 @@ public class ClientGUI extends JFrame {
                 container.remove(auto);
                 container.remove(manual);
                 recharge(container,constraints,3,5,input);
+                button.show(true);
                 container.revalidate();
             }
 
