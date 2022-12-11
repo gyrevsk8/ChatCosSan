@@ -39,7 +39,7 @@ public class Phone {
      * @return phoneNumber
      * @throws NumberException
      */
-    static String checkPhone(String phoneNumber) throws NumberException {// тут очевидно нужны tey catch!//закрыто
+    static String checkPhone(String phoneNumber) throws NumberException, InterruptedException {// тут очевидно нужны tey catch!//закрыто
 
         try
         {
@@ -59,7 +59,8 @@ public class Phone {
 
             Scanner scan = new Scanner(System.in);
             System.out.print("\nphone:");
-            String phone = scan.nextLine();
+            Client.sleepe();
+            String phone = Client.currentCommand;
             String phoneNew;
             phoneNew = Phone.checkPhone(phone);
             return phoneNew;

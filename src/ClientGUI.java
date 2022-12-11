@@ -148,6 +148,7 @@ public class ClientGUI extends JFrame {
             if (light) {
               getContentPane().setBackground(Color.BLACK);
               textArea.setBackground(Color.DARK_GRAY);
+              textArea.setForeground(Color.white);
               textArea.setOpaque(true);
 
               scrollPane.setBackground(Color.BLACK);
@@ -174,6 +175,7 @@ public class ClientGUI extends JFrame {
             {
                 getContentPane().setBackground(Color.WHITE);
                 textArea.setBackground(Color.lightGray);
+                textArea.setForeground(Color.BLACK);
                 textArea.setOpaque(true);
 
                 johnsnow.setBackground(Color.WHITE);
