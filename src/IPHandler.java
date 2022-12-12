@@ -41,6 +41,7 @@ public class IPHandler {
             gui.container.remove(gui.auto);
             gui.container.remove(gui.manual);
             gui.container.remove(gui.outfit);
+            gui.container.remove(gui.userlist);
             gui.button.show(false);                         //переопределение gui для хэндлера
             gui.input.show(false);                          //переопределение gui для хэндлера
             gui.textArea.show(false);                                 //переопределение gui для хэндлера

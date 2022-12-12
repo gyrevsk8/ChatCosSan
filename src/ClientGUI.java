@@ -39,6 +39,7 @@ public class ClientGUI extends JFrame {
         icon = new ImageIcon(icon.getImage().getScaledInstance(300,150, BufferedImage.SCALE_SMOOTH));
         ImageIcon finalIcon = icon;
 
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
      //   textArea.setOpaque(false);
         this.setBounds(150, 150, 480, 400);
@@ -92,6 +93,7 @@ public class ClientGUI extends JFrame {
 
         johnsnow.setPreferredSize(new Dimension(280,40));
         container.add(johnsnow,constraints);
+
         constraints.gridx=0;
         constraints.gridy = 0;
         //container.add(userlist,constraints);
@@ -219,7 +221,7 @@ public class ClientGUI extends JFrame {
               getRootPane().setBackground(Color.DARK_GRAY);
               getContentPane().setBackground(Color.DARK_GRAY);
               textArea.setBackground(Color.DARK_GRAY);
-             textArea.setForeground(Color.white);
+              textArea.setForeground(Color.white);
               textArea.setOpaque(true);
                 //ImageIcon  i = new ImageIcon("src/wp.jpg");// Получить файлы изображений под соответствующим путем (эта картина должна быть под SRC)
                // i.setImage(i.getImage().getScaledInstance(textArea.getWidth()-1,textArea.getHeight()-1,Image.SCALE_AREA_AVERAGING));
@@ -286,12 +288,13 @@ public class ClientGUI extends JFrame {
 
 void setUserlist (ArrayList<String>clientUsernames)
 {
+    String nig = new String();
    for(int i=0;i<clientUsernames.size();i++)
-    {
-    userlist.setText(clientUsernames.get(i));
-    System.out.println("Client:"+i+" " +clientUsernames.get(i));
+   {
+       nig = nig + clientUsernames.get(i);
+       System.out.println("Client:"+i+" " +clientUsernames.get(i));
    }
-
+    userlist.setText(nig);
 }
 
 
