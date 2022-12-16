@@ -68,7 +68,7 @@ public class ClientHandler implements Runnable,ClientF{
     public void removeClientHandler() { // Если клиент отключился, мы его удаляем, потому, что нам больше не нужно отправлять ему сообщения
         clientHandlers.remove(this);
         broadcastMessage("SERVER: " + clientUsername + " has left the chat!");
-        Client.gui.addUserlist(Client.gui.clientUsernames,);
+      //  Client.gui.addUserlist(Client.gui.clientUsernames,);
         Client.gui.textArea.setText(Client.gui.textArea.getText()+"<p>"+"SERVER: " + clientUsername + " has left the chat!");
 
     }
