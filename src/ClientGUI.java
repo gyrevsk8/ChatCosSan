@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -23,7 +22,7 @@ public class ClientGUI extends JFrame {
     Container container = this.getContentPane();
     GridBagConstraints constraints = new GridBagConstraints();
 
-    void recharge (Container container, GridBagConstraints constraints, int x, int y, JTextField input)
+    void createInputLine(Container container, GridBagConstraints constraints, int x, int y, JTextField input)
     {
         constraints.gridx = x;
         constraints.gridy = y;
@@ -52,6 +51,7 @@ public class ClientGUI extends JFrame {
         textArea.setBackground(Color.lightGray);
         textArea.setOpaque(true);
         textArea.setPreferredSize(new Dimension(280,250));
+        textArea.setVerticalAlignment(SwingConstants.BOTTOM);
 
         userlist.setPreferredSize(new Dimension(100,250));
 
@@ -67,6 +67,7 @@ public class ClientGUI extends JFrame {
 
         userlist.setBackground(Color.LIGHT_GRAY);
        // userlist.setBorder(BorderFactory.createEmptyBorder(1,1,1,1));
+        userlist.setVerticalAlignment(SwingConstants.TOP);
         userlist.setOpaque(true);
 
         scrollPane.setMinimumSize(new Dimension(280,150));
@@ -195,7 +196,7 @@ public class ClientGUI extends JFrame {
                 Client.asd = false;
                 container.remove(auto);
                 container.remove(manual);
-                recharge(container,constraints,3,5,input);
+                createInputLine(container,constraints,3,5,input);
                 button.show(true);
                 container.revalidate();
 
@@ -206,7 +207,7 @@ public class ClientGUI extends JFrame {
                 Client.asd = false;
                 container.remove(auto);
                 container.remove(manual);
-                recharge(container,constraints,3,5,input);
+                createInputLine(container,constraints,3,5,input);
                 button.show(true);
                 container.revalidate();
             }
