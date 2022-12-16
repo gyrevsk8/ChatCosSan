@@ -170,7 +170,7 @@ public class Client {
         String password = currentCommand;
         //System.out.println(currentCommand);//отладка
 
-        Client client = new Client(socket, username,phonenew);
+        Client client = new Client(socket, username,phonenew,password);
         client.listenForMessage();
         client.sendMessage();
     }
