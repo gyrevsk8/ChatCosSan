@@ -1,4 +1,4 @@
-import javax.xml.crypto.Data;
+import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -6,14 +6,14 @@ import java.util.ArrayList;
 public class ClientHandler implements Runnable,ClientF{
 
     public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>(); // Для того чтобы прокрутить всех
-    // (для последующей отправки сообщений через BufferWriter)
+                                                                                // (для последующей отправки сообщений через BufferWriter)
 
     private Socket socket; // Для установления соединения между клиентом и сервером
     private BufferedReader bufferedReader; // Для того, чтобы считывать отправленные сообщения
     private BufferedWriter bufferedWriter; // Для того, чтобы отправить сообщение клиенту
     private String clientUsername ; // Имя пользователя
-    private String clientPhone;
-    private String clientPassword;
+
+
 
     public ClientHandler(Socket socket) {
         try {
@@ -27,14 +27,6 @@ public class ClientHandler implements Runnable,ClientF{
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             this.clientUsername = bufferedReader.readLine(); // Считываем имя пользователя
-            this.clientPhone = bufferedReader.readLine();
-            this.clientPassword = bufferedReader.readLine();
-
-            DatabaseHandler dbHandler = new DatabaseHandler();
-
-            dbHandler.singUpUser(clientUsername, clientPhone, clientPassword);
-
-
             clientHandlers.add(this); // Добавляем пользователя в массив
             broadcastMessage("SERVER: " + clientUsername + " has entered the chat");
             Client.gui.textArea.setText(Client.gui.textArea.getText()+"<p>"+"SERVER: " + clientUsername + " has entered the chat");
@@ -42,7 +34,6 @@ public class ClientHandler implements Runnable,ClientF{
             closeEverything(socket, bufferedReader, bufferedWriter);
         }
     }
-
 
     @Override
     public void run() {
@@ -77,7 +68,7 @@ public class ClientHandler implements Runnable,ClientF{
     public void removeClientHandler() { // Если клиент отключился, мы его удаляем, потому, что нам больше не нужно отправлять ему сообщения
         clientHandlers.remove(this);
         broadcastMessage("SERVER: " + clientUsername + " has left the chat!");
-        //  Client.gui.addUserlist(Client.gui.clientUsernames,);
+      //  Client.gui.addUserlist(Client.gui.clientUsernames,);
         Client.gui.textArea.setText(Client.gui.textArea.getText()+"<p>"+"SERVER: " + clientUsername + " has left the chat!");
 
     }

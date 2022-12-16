@@ -298,6 +298,7 @@ public class ClientGUI extends JFrame {
            System.out.println("Client:"+i+" " +clientUsernames.get(i));
        }
         userlist.setText(nig);
+       container.revalidate();
     }
     void eraseUserList(ArrayList<String>clientUsernames, String name)
     {
@@ -309,6 +310,7 @@ public class ClientGUI extends JFrame {
             System.out.println("Client:"+i+" " +clientUsernames.get(i));
         }
         userlist.setText(nig);
+        container.revalidate();
     }
 
 
