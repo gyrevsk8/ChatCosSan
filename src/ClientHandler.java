@@ -1,6 +1,7 @@
 import javax.xml.crypto.Data;
 import java.io.*;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ClientHandler implements Runnable,ClientF{
@@ -27,11 +28,11 @@ public class ClientHandler implements Runnable,ClientF{
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
             this.clientUsername = bufferedReader.readLine(); // Считываем имя пользователя
+            Client.gui.userlist.setText(clientUsername);
             this.clientPhone = bufferedReader.readLine();
             this.clientPassword = bufferedReader.readLine();
 
             DatabaseHandler dbHandler = new DatabaseHandler();
-
             dbHandler.singUpUser(clientUsername, clientPhone, clientPassword);
 
 
@@ -75,6 +76,7 @@ public class ClientHandler implements Runnable,ClientF{
     }
 
     public void removeClientHandler() { // Если клиент отключился, мы его удаляем, потому, что нам больше не нужно отправлять ему сообщения
+
         clientHandlers.remove(this);
         broadcastMessage("SERVER: " + clientUsername + " has left the chat!");
         //  Client.gui.addUserlist(Client.gui.clientUsernames,);
