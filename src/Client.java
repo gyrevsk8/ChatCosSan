@@ -51,6 +51,8 @@ public class Client {
                 String messageToSend =  currentCommand;
                 bufferedWriter.write(username + ": " + messageToSend);
                 gui.textArea.setText(gui.textArea.getText()+"<p>"+username+":"+messageToSend);
+                JScrollBar vertical = gui.scrollPane.getVerticalScrollBar();
+                vertical.setValue( vertical.getMaximum() );
                 logger.setNewLogMessage(username,phonenumber, messageToSend);
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
@@ -146,22 +148,23 @@ public class Client {
         sleepe();
        // String username = scanner.nextLine();
         String username = currentCommand;
-        System.out.println(currentCommand);//отладка
+       // System.out.println(currentCommand);//отладка
 
-        System.out.println("Enter your password: ");
-        gui.johnsnow.setText("Enter your password: ");
-        sleepe();
-        String password = currentCommand;
-        System.out.println(currentCommand);//отладка
-
-        System.out.println("Enter your phone: ");//отладка  //
-       gui.johnsnow.setText("Enter your phone: ");
+        // System.out.println("Enter your phone: ");//отладка  //
+        gui.johnsnow.setText("Enter your phone: ");
         sleepe();
 
         // String phonenumber = scanner.nextLine();
         String phonenumber = currentCommand;
         String phonenew = Phone.checkPhone(phonenumber);
         gui.johnsnow.setText("");
+
+        System.out.println("Enter your password: ");
+        gui.johnsnow.setText("Enter your password: ");
+        sleepe();
+        String password = currentCommand;
+        //System.out.println(currentCommand);//отладка
+
         Client client = new Client(socket, username,phonenew);
         client.listenForMessage();
         client.sendMessage();

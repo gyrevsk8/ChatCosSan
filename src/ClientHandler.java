@@ -38,13 +38,20 @@ public class ClientHandler implements Runnable,ClientF{
 
             clientHandlers.add(this); // Добавляем пользователя в массив
             broadcastMessage("SERVER: " + clientUsername + " has entered the chat");
+            setNames();
             Client.gui.textArea.setText(Client.gui.textArea.getText()+"<p>"+"SERVER: " + clientUsername + " has entered the chat");
         } catch (IOException e) {
             closeEverything(socket, bufferedReader, bufferedWriter);
         }
     }
 
+    public void setNames() {
+        for (ClientHandler clientHandler : clientHandlers)
+        {
+            Client.gui.addUserlist(Client.gui.clientUsernames,clientHandler.clientUsername);
+    }
 
+    }
     @Override
     public void run() {
         String messageFromClient;

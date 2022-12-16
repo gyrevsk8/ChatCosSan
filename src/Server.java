@@ -20,6 +20,7 @@ public class Server implements ServerF {
                 System.out.println("New client was connected");
 
                 ClientHandler clientHandler = new ClientHandler(socket);// Некий коммутатор - он будет получать сообщения одного клиента и отправлять их другому
+                clientHandler.setNames();
                 Thread thread = new Thread(clientHandler); // Для того, чтобы мы могли создавать несколько потоков
                 thread.start();
 

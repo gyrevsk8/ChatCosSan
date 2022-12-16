@@ -39,7 +39,7 @@ public class ClientGUI extends JFrame {
         ImageIcon finalIcon = icon;
         setIconImage(icon.getImage());
 
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        //scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
      //   textArea.setOpaque(false);
         this.setBounds(150, 150, 480, 400);
@@ -51,7 +51,7 @@ public class ClientGUI extends JFrame {
         textArea.setText("<html>");
         textArea.setBackground(Color.lightGray);
         textArea.setOpaque(true);
-        textArea.setPreferredSize(new Dimension(280,250));
+        //textArea.setPreferredSize(new Dimension(280,250));
         textArea.setVerticalAlignment(SwingConstants.BOTTOM);
 
         userlist.setPreferredSize(new Dimension(100,250));
@@ -71,9 +71,11 @@ public class ClientGUI extends JFrame {
         userlist.setVerticalAlignment(SwingConstants.TOP);
         userlist.setOpaque(true);
 
-        scrollPane.setMinimumSize(new Dimension(280,150));
-        scrollPane.setPreferredSize(new Dimension(280,260));
-        scrollPane.setWheelScrollingEnabled(true);
+       // scrollPane.setMinimumSize(new Dimension(280,150));
+       scrollPane.setPreferredSize(new Dimension(280,260));
+        //scrollPane.setWheelScrollingEnabled(true);
+
+
         container.setLayout(new GridBagLayout());
 
         //textArea.setIcon(icon);
@@ -138,8 +140,7 @@ public class ClientGUI extends JFrame {
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){
                     messege+=input.getText();
                    // textArea.setText( textArea.getText() + "<p>" + input.getText());
-                    JScrollBar vertical = scrollPane.getVerticalScrollBar();
-                    vertical.setValue( vertical.getMaximum() );
+
                     //System.out.println(textArea.getText());
                     System.out.println(messege);
                     Client.currentCommand = messege;
@@ -149,6 +150,7 @@ public class ClientGUI extends JFrame {
 
                     input.setText("");
                    // input.setCaretPosition(0);
+                    scrollPane.getVerticalScrollBar().getMaximum();
                 }
             }
 
@@ -174,15 +176,14 @@ public class ClientGUI extends JFrame {
 
            messege+=input.getText();
            //textArea.setText( textArea.getText() + "<p>" + input.getText());
-            JScrollBar vertical = scrollPane.getVerticalScrollBar();
-            vertical.setValue( vertical.getMaximum() );
             //System.out.println(textArea.getText());
-           System.out.println(messege);
+            System.out.println(messege);
            Client.currentCommand = messege;
            input.setText("");
            Client.asd = false;
            messege = "";
            input.setCaretPosition(0);
+            scrollPane.getVerticalScrollBar().getMaximum();
 
         }
     }
