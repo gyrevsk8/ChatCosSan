@@ -148,6 +148,12 @@ public class Client {
         String username = currentCommand;
         System.out.println(currentCommand);//отладка
 
+        System.out.println("Enter your password: ");
+        gui.johnsnow.setText("Enter your password: ");
+        sleepe();
+        String password = currentCommand;
+        System.out.println(currentCommand);//отладка
+
         System.out.println("Enter your phone: ");//отладка  //
        gui.johnsnow.setText("Enter your phone: ");
         sleepe();

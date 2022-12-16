@@ -19,7 +19,7 @@ public class Server implements ServerF {
                 Socket socket = serverSocket.accept(); // Ждем подключение клиента
                 System.out.println("New client was connected");
 
-                ClientHandler clientHandler = new ClientHandler(socket); // Некий коммутатор - он будет получать сообщения одного клиента и отправлять их другому
+                ClientHandler clientHandler = new ClientHandler(socket);// Некий коммутатор - он будет получать сообщения одного клиента и отправлять их другому
                 Thread thread = new Thread(clientHandler); // Для того, чтобы мы могли создавать несколько потоков
                 thread.start();
 

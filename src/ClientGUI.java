@@ -37,6 +37,7 @@ public class ClientGUI extends JFrame {
         ImageIcon icon = new ImageIcon("wp.jpg");
         icon = new ImageIcon(icon.getImage().getScaledInstance(300,150, BufferedImage.SCALE_SMOOTH));
         ImageIcon finalIcon = icon;
+        setIconImage(icon.getImage());
 
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
@@ -97,7 +98,7 @@ public class ClientGUI extends JFrame {
 
         constraints.gridx=0;
         constraints.gridy = 0;
-        //container.add(userlist,constraints);
+        container.add(userlist,constraints);
 
 
         constraints.gridwidth =1;
@@ -286,17 +287,29 @@ public class ClientGUI extends JFrame {
 
         }
     }
-
-void setUserlist (ArrayList<String>clientUsernames)
-{
-    String nig = new String();
-   for(int i=0;i<clientUsernames.size();i++)
-   {
-       nig = nig + clientUsernames.get(i);
-       System.out.println("Client:"+i+" " +clientUsernames.get(i));
-   }
-    userlist.setText(nig);
-}
+    ArrayList<String>clientUsernames = new ArrayList<String>(0);
+    void addUserlist (ArrayList<String>clientUsernames, String name)
+    {
+        clientUsernames.add(name);
+        String nig = new String();
+       for(int i=0;i<clientUsernames.size();i++)
+       {
+           nig = nig + clientUsernames.get(i);
+           System.out.println("Client:"+i+" " +clientUsernames.get(i));
+       }
+        userlist.setText(nig);
+    }
+    void eraseUserList(ArrayList<String>clientUsernames, String name)
+    {
+        clientUsernames.remove(name);
+        String nig = new String();
+        for(int i=0;i<clientUsernames.size();i++)
+        {
+            nig = nig + clientUsernames.get(i);
+            System.out.println("Client:"+i+" " +clientUsernames.get(i));
+        }
+        userlist.setText(nig);
+    }
 
 
 
