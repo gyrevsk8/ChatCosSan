@@ -13,10 +13,11 @@ public class Client {
     private String username ;
 
     private String phonenumber;
+    private String password;
 
     Logger logger = new Logger();
    // IPGet ipg = new IPGet();
-    public Client(Socket socket, String username,String phonenumber) {
+    public Client(Socket socket, String username,String phonenumber, String password) {
        try {
            this.socket = socket;
 
@@ -26,7 +27,7 @@ public class Client {
            // Поэтому мы делаем такую обертку.
            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-           
+           this.password = password;
            this.username = username;
            this.phonenumber = phonenumber;
        } catch (IOException e) {
@@ -54,6 +55,10 @@ public class Client {
                 JScrollBar vertical = gui.scrollPane.getVerticalScrollBar();
                 vertical.setValue( vertical.getMaximum() );
                 logger.setNewLogMessage(username,phonenumber, messageToSend);
+                if(password.length()>0)
+                {
+                    System.out.println("Well pass");
+                }
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
             }
