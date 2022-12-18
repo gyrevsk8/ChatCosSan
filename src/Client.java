@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
@@ -40,12 +39,16 @@ public class Client {
             closeEverything(socket, bufferedReader, bufferedWriter);
         }
     }
+
+    public String getName(){
+        return username;
+    }
     public void sendMessage() {
         try {
             while (socket.isConnected()) {
                 Client.sleepe();
                 String messageToSend =  currentCommand;
-                bufferedWriter.write(messageToSend);
+                bufferedWriter.write(username + ":" + messageToSend);
                 gui.textArea.setText(gui.textArea.getText()+"<p>"+username+":"+messageToSend);
                 JScrollBar vertical = gui.scrollPane.getVerticalScrollBar();
                 vertical.setValue( vertical.getMaximum() );
@@ -163,6 +166,7 @@ public class Client {
         sleepe();
         String password = currentCommand;
         System.out.println(password);
+        gui.johnsnow.setText("");
         //System.out.println(currentCommand);//отладка
 
         Client client = new Client(socket, username, phonenew, password);
