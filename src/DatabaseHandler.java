@@ -3,6 +3,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.time.LocalDateTime;
 
 public class DatabaseHandler extends Configs{
 
@@ -30,22 +31,23 @@ public class DatabaseHandler extends Configs{
 
             prSt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e);
+            throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
-            System.out.println(e);
+            throw new RuntimeException(e);
         }
 
     }
 
     public void logMessage(String username, String message){
         String insert_message = "INSERT INTO " + Const.MESSAGE_TABLE +
-                "(" + Const.MESSAGE_NAME + "," + Const.MESSAGE_MESSAGE + ")"
-                + "VALUES(?,?)";
+                "(" + Const.MESSAGE_NAME + "," + Const.MESSAGE_MESSAGE + "," + Const.MESSAGE_DATA + ")"
+                + "VALUES(?,?,?)";
 
         try {
             PreparedStatement prSt = getDbConnection().prepareStatement(insert_message);
             prSt.setString(1, username);
             prSt.setString(2, message);
+            prSt.setString(3, LocalDateTime.now().toString().substring(0,19));
 
             prSt.executeUpdate();
         } catch (SQLException e) {
