@@ -4,17 +4,20 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ClientHandler implements Runnable,ClientF {
+public class ClientHandler implements Runnable,ClientF {  //Чтобы получить доступ к методам интерфейса,
+    // интерфейс должен быть «реализован» другим классом с ключевым словом implements.
 
-    public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>(); // Для того чтобы прокрутить всех юзеров
-    // (для последующей отправки сообщений через BufferWriter)
+    public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>(); // Собираем объекты клиентского обрабочика,
+    // для того чтобы прокрутить всех юзеров (для последующей отправки сообщений через BufferWriter)
+
+    //Static нужен, чтобы этот ArrayList принадлежал только классу, а не всем объектам класса
 
     private Socket socket; // Для установления соединения между клиентом и сервером
-    private BufferedReader bufferedReader; // Для того, чтобы считывать отправленные сообщения
-    private BufferedWriter bufferedWriter; // Для того, чтобы отправить сообщение клиенту
+    private BufferedReader bufferedReader; // Для того чтобы считывать отправленные сообщения
+    private BufferedWriter bufferedWriter; // Для того чтобы отправить сообщение клиенту
     private String clientUsername; // Имя пользователя
-    private String clientPassword;
-    private String clientPhone;
+    private String clientPassword; // Пароль
+    private String clientPhone; // Номер телефона
 
 
     public ClientHandler(Socket socket) {
@@ -22,11 +25,12 @@ public class ClientHandler implements Runnable,ClientF {
 
             this.socket = socket;
 
+            //Socket имеет выходной поток, который мы можем использовать для отправки данных и входной поток для получения данных
+
             // В java есть два типа потоков: поток байтов и поток символов.
             // Нам нужен поток символов.
-            // В java поток символов "оканчивается на Writer", а поток байтов на Stream.
-            // Поэтому мы делаем такую обертку.
-
+            // Так как мы получаем поток байтов, то нам нужно обернуть конструкцию
+            // В java поток символов "оканчивается на условный Writer", а поток байтов на Stream.
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
@@ -34,76 +38,95 @@ public class ClientHandler implements Runnable,ClientF {
             this.clientPhone = bufferedReader.readLine();
             this.clientPassword = bufferedReader.readLine();
             bufferedWriter.write(clientHandlers.toString());
-            DatabaseHandler dbHandler = new DatabaseHandler();
 
-            dbHandler.singUpUser(clientUsername, clientPhone, clientPassword);
+            DatabaseHandler dbHandler = new DatabaseHandler(); // База данных
+            dbHandler.singUpUser(clientUsername, clientPhone, clientPassword); // Регистрируем пользователя
 
 
             clientHandlers.add(this); // Добавляем пользователя в массив
+            // Представляет собой объект клиентского обработчика, поэтому мы передаем его(this) в массив.
+
             System.out.println(clientHandlers.toString());
+
             broadcastMessage("SERVER: " + clientUsername + " has entered the chat");
-        } catch (IOException e) {
-            closeEverything(socket, bufferedReader, bufferedWriter);
+            // Отправляем сообщение всем пользователям, что подключился новый пользователь
+
+        } catch (IOException e) { // Ловим ошибку ввода-вывода
+            closeEverything(socket, bufferedReader, bufferedWriter); // Если поймали ее, закрываем соединение
         }
     }
 
 
     @Override
-    public void run() {
-        DatabaseHandler dbHandler = new DatabaseHandler();
-        
-        LoggerCrypt crypt = new LoggerCrypt();
-        
+    public void run() { // Мы реализовали интерфейс Runnable, теперь же мы должны переопределить его метод
+        // Мы будем прослушивать сообщения. Прослушивание сообщений - "блокирующая" операция,
+        // тоесть программа будет зависать, до завершения операции. Если бы мы не использовали дополнительный поток,
+        // то наша программа зависала бы в ожидании сообщений от пользователя.
+        // А мы также хотим иметь возможность отправлять сообщения независимо от других пользователей.
+
+        DatabaseHandler dbHandler = new DatabaseHandler(); // База данных
+        LoggerCrypt crypt = new LoggerCrypt(); // Шифрование
+
         String messageFromClient;
 
-        while (socket.isConnected()) {
+        while (socket.isConnected()) { // Пока мы подключены
             try {
-                messageFromClient = bufferedReader.readLine();
-                broadcastMessage(messageFromClient);
-                dbHandler.logMessage(clientUsername, crypt.encode(messageFromClient));
-            } catch (IOException e) {
-                closeEverything(socket, bufferedReader, bufferedWriter);
-                break;
+                messageFromClient = bufferedReader.readLine(); // Слушаем сообщения пользователя
+                broadcastMessage(messageFromClient); // Отправляем сообщение всем пользователям
+
+                dbHandler.logMessage(clientUsername, crypt.encode(messageFromClient)); // Логируем зашифрованное сообщение пользователя
+
+            } catch (IOException e) { // Ловим ошибку ввода-вывода
+                closeEverything(socket, bufferedReader, bufferedWriter); // Если поймали ее, закрываем соединение
+                break; // Без этого break, у нас будет снова и снова крутиться цикл
             }
         }
     }
 
-    public void broadcastMessage(String messageToSend) {
+    public void broadcastMessage(String messageToSend) { // Отправка сообщения всем пользователям
 
 
-        for (ClientHandler clientHandler : clientHandlers) {// цикл for each
+        for (ClientHandler clientHandler : clientHandlers) { // Цикл for each. Перебираем каждого пользователя
             try {
-                if (!clientHandler.clientUsername.equals(clientUsername)) {
-                    clientHandler.bufferedWriter.write('\n' + messageToSend);
-                    clientHandler.bufferedWriter.newLine(); // Говорит - брат, я отправил сообщение, не нужно больше ожидать текст
+                if (!clientHandler.clientUsername.equals(clientUsername)) { // Отправляем сообщение всем, кроме себя
+                    clientHandler.bufferedWriter.write('\n' + messageToSend); // Отправляем сообщение пользователю
+                    clientHandler.bufferedWriter.newLine(); // Говорит: "Брат, я отправил сообщение, не нужно больше ожидать текст".
                     clientHandler.bufferedWriter.flush(); // Очищаем буфер
                 }
-            } catch (IOException e) {
-                closeEverything(socket, bufferedReader, bufferedWriter);
+            } catch (IOException e) { // Ловим ошибку ввода-вывода
+                closeEverything(socket, bufferedReader, bufferedWriter); // Если поймали ее, закрываем соединение
             }
         }
     }
 
     public void removeClientHandler() { // Если клиент отключился, мы его удаляем, потому, что нам больше не нужно отправлять ему сообщения
 
-
-        clientHandlers.remove(this);
-        broadcastMessage("SERVER: " + clientUsername + " has left the chat!");
-
+        clientHandlers.remove(this); // Представляет собой объект клиентского обработчика. Удаляем пользователя из массива.
+        broadcastMessage("SERVER: " + clientUsername + " has left the chat!"); // Отправляем всем сообщение, что пользователь вышел.
     }
 
     public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter) {
-        removeClientHandler();
+        //Используется, для закрытия соединения(socket) и потоков(BufferedReader, BufferedWriter)
+
+        removeClientHandler(); // Выпиливаем пользователя из массива
         try {
-            if (bufferedReader != null) { // Если bufferReader окажется null, выдаст нам ошибку, т.к метод close() чувтсвителен к этому. Этот кусок это правит.
+            // Если bufferReader окажется null, выдаст нам ошибку, т.к метод close() чувтсвителен к этому. Этот кусок это правит.
+            if (bufferedReader != null) {
                 bufferedReader.close();
             }
-            if (bufferedWriter != null) { // Если bufferWriter окажется null, выдаст нам ошибку, т.к метод close() чувтсвителен к этому. Этот кусок это правит.
+
+            // Если bufferWriter окажется null, выдаст нам ошибку, т.к метод close() чувтсвителен к этому. Этот кусок это правит.
+            if (bufferedWriter != null) {
+
                 bufferedWriter.close();
             }
-            if (socket != null) { // Если socket окажется null, выдаст нам ошибку, т.к метод close() чувтсвителен к этому. Этот кусок это правит.
+
+            // Если socket окажется null, выдаст нам ошибку, т.к метод close() чувтсвителен к этому. Этот кусок это правит.
+            if (socket != null) {
+
                 socket.close();
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
