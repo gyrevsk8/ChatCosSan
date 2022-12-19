@@ -7,4 +7,5 @@ public class Const {
     public static final String MESSAGE_TABLE = "messages";
     public static final String MESSAGE_NAME = "username";
     public static final String MESSAGE_MESSAGE = "message";
+    public static final String MESSAGE_DATA = "data";
 }

@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
@@ -16,41 +15,40 @@ public class Client {
     private String password;
 
     Logger logger = new Logger();
-   // IPGet ipg = new IPGet();
+    // IPGet ipg = new IPGet();
     public Client(Socket socket, String username,String phonenumber, String password) {
-       try {
-           this.socket = socket;
+        try {
+            this.socket = socket;
 
-           // В java есть два типа потоков: поток байтов и поток символов.
-           // Нам нужен поток символов.
-           // В java поток символов "оканчивается на Writer", а поток байтов на Stream.
-           // Поэтому мы делаем такую обертку.
-           this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-           this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-           this.password = password;
-           this.username = username;
-           this.phonenumber = phonenumber;
-       } catch (IOException e) {
-           closeEverything(socket, bufferedReader, bufferedWriter);
-       }
+            // В java есть два типа потоков: поток байтов и поток символов.
+            // Нам нужен поток символов.
+            // В java поток символов "оканчивается на Writer", а поток байтов на Stream.
+            // Поэтому мы делаем такую обертку.
+            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            bufferedWriter.write(username + "\n");
+            bufferedWriter.write(phonenumber + "\n");
+            bufferedWriter.write(password + "\n");
+            bufferedWriter.flush();
+
+            this.username = username;
+            this.phonenumber = phonenumber;
+            this.password = password;
+        } catch (IOException e) {
+            closeEverything(socket, bufferedReader, bufferedWriter);
+        }
     }
 
-    public String getusername()
-    {
+    public String getName(){
         return username;
     }
     public void sendMessage() {
         try {
-            bufferedWriter.write(username);
-            bufferedWriter.newLine();
-
-            bufferedWriter.flush();
-
-            Scanner scanner = new Scanner(System.in);
             while (socket.isConnected()) {
                 Client.sleepe();
                 String messageToSend =  currentCommand;
-                bufferedWriter.write(username + ": " + messageToSend);
+                bufferedWriter.write(username + ":" + messageToSend);
                 gui.textArea.setText(gui.textArea.getText()+"<p>"+username+":"+messageToSend);
                 JScrollBar vertical = gui.scrollPane.getVerticalScrollBar();
                 vertical.setValue( vertical.getMaximum() );
@@ -151,38 +149,41 @@ public class Client {
         System.out.println("Enter your username: ");
         gui.johnsnow.setText("Enter your username: ");
         sleepe();
-       // String username = scanner.nextLine();
         String username = currentCommand;
-       // System.out.println(currentCommand);//отладка
+        // System.out.println(currentCommand);//отладка
 
         // System.out.println("Enter your phone: ");//отладка  //
         gui.johnsnow.setText("Enter your phone: ");
         sleepe();
-
         // String phonenumber = scanner.nextLine();
         String phonenumber = currentCommand;
         String phonenew = Phone.checkPhone(phonenumber);
+        System.out.println(phonenew);
         gui.johnsnow.setText("");
 
         System.out.println("Enter your password: ");
         gui.johnsnow.setText("Enter your password: ");
         sleepe();
         String password = currentCommand;
+        System.out.println(password);
+        gui.johnsnow.setText("");
         //System.out.println(currentCommand);//отладка
 
-        Client client = new Client(socket, username,phonenew,password);
+        Client client = new Client(socket, username, phonenew, password);
+
         client.listenForMessage();
+
         client.sendMessage();
     }
 
-static void sleepe() throws InterruptedException {
-    while(asd)
-    {
-        TimeUnit.MILLISECONDS.sleep(300);
+    static void sleepe() throws InterruptedException {
+        while(asd)
+        {
+            TimeUnit.SECONDS.sleep(1);
+        }
+        JScrollBar vertical = gui.scrollPane.getVerticalScrollBar();
+        vertical.setValue( vertical.getMaximum() );
+        asd = true;//после его использования всегда должен стоять asd=true;
     }
-    JScrollBar vertical = gui.scrollPane.getVerticalScrollBar();
-    vertical.setValue( vertical.getMaximum() );
-    asd = true;//после его использования всегда должен стоять asd=true;
-}
 
 }
