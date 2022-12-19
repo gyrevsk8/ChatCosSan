@@ -178,7 +178,7 @@ public class Client {
 static void sleepe() throws InterruptedException {
     while(asd)
     {
-        TimeUnit.SECONDS.sleep(1);
+        TimeUnit.MILLISECONDS.sleep(300);
     }
     JScrollBar vertical = gui.scrollPane.getVerticalScrollBar();
     vertical.setValue( vertical.getMaximum() );
