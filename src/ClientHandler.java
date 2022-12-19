@@ -51,13 +51,16 @@ public class ClientHandler implements Runnable,ClientF {
     @Override
     public void run() {
         DatabaseHandler dbHandler = new DatabaseHandler();
+        
+        LoggerCrypt crypt = new LoggerCrypt();
+        
         String messageFromClient;
 
         while (socket.isConnected()) {
             try {
                 messageFromClient = bufferedReader.readLine();
                 broadcastMessage(messageFromClient);
-                dbHandler.logMessage(clientUsername, messageFromClient);
+                dbHandler.logMessage(clientUsername, crypt.encode(messageFromClient));
             } catch (IOException e) {
                 closeEverything(socket, bufferedReader, bufferedWriter);
                 break;
