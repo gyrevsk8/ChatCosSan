@@ -31,9 +31,9 @@ public class DatabaseHandler extends Configs{
 
             prSt.executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e);
+            throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
-            System.out.println(e);
+            throw new RuntimeException(e);
         }
 
     }
