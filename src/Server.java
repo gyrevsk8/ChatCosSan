@@ -3,7 +3,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 
-public class Server implements ServerF {
+public class Server implements ServerF { // Чтобы получить доступ к методам интерфейса,
+    // интерфейс должен быть «реализован» другим классом с ключевым словом implements.
+
+    //Интерфейсы определяют некоторый функционал, не имеющий конкретной реализации,
+    // который затем реализуют классы, применяющие эти интерфейсы.
 
     private ServerSocket serverSocket; // Класс ServerSocket
 
@@ -13,7 +17,7 @@ public class Server implements ServerF {
 
     public void startServer() {
 
-        try {
+        try { // Блок Try-catch: простыми словами try-пробуй сделать это, если обнаружишь ошибку, то catch(отлавливай ее).
 
             while (!serverSocket.isClosed()) { // Для того, чтобы сервак не закрывался и ждал подключения
                 Socket socket = serverSocket.accept(); // Ждем подключение клиента
