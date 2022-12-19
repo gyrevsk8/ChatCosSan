@@ -1,9 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.net.*;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.Scanner;
 
 
@@ -52,13 +50,13 @@ public class IPHandler {
 
             int timeout = 10;
             String host = subnet + "." + i;
-            //gui.johnsnow.setText("IP in proggress:"+host);
+            //gui.serverMessage.setText("IP in proggress:"+host);
 
             if (InetAddress.getByName(host).isReachable(timeout)) {
                 System.out.println(host + " is reachable");
-                gui.johnsnow.setForeground(Color.GREEN);
-                gui.johnsnow.setText("IP in access:" + host);
-                //gui.johnsnow.setForeground(Color.black);
+                gui.serverMessage.setForeground(Color.GREEN);
+                gui.serverMessage.setText("IP in access:" + host);
+                //gui.serverMessage.setForeground(Color.black);
                 ip[iter] = host;
                 iter++;
                 try {
@@ -71,9 +69,9 @@ public class IPHandler {
 
 
             } else {
-                gui.johnsnow.setForeground(Color.RED);
-                gui.johnsnow.setText("IP is closed:" + host);
-                //gui.johnsnow.setForeground(Color.black);
+                gui.serverMessage.setForeground(Color.RED);
+                gui.serverMessage.setText("IP is closed:" + host);
+                //gui.serverMessage.setForeground(Color.black);
 
             }
         }

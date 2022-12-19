@@ -15,7 +15,7 @@ public class ClientGUI extends JFrame {
     JTextField input = new JTextField("",15);
     public JLabel textArea = new JLabel("DFSDFSDFGSDFG");
 
-    JLabel johnsnow = new JLabel();
+    JLabel serverMessage = new JLabel();
     JLabel userlist = new JLabel("qwd");
     String messege = "";
     final JScrollPane scrollPane = new JScrollPane(textArea);
@@ -86,7 +86,7 @@ public class ClientGUI extends JFrame {
 
         constraints.weightx = 0.5;
         constraints.gridy   = 0  ;
-        johnsnow.setFont(new Font("Times New Roman", Font.BOLD, 16));
+        serverMessage.setFont(new Font("Times New Roman", Font.BOLD, 16));
         textArea.setFont(new Font("Times New Roman", Font.BOLD, 16));
         constraints.gridwidth = 2;
         constraints.gridx = 2;
@@ -95,8 +95,8 @@ public class ClientGUI extends JFrame {
         constraints.gridx = 2;
         constraints.gridy = 4;
 
-        johnsnow.setPreferredSize(new Dimension(280,40));
-        container.add(johnsnow,constraints);
+        serverMessage.setPreferredSize(new Dimension(280,40));
+        container.add(serverMessage,constraints);
 
         constraints.gridx=0;
         constraints.gridy = 0;
@@ -145,7 +145,7 @@ public class ClientGUI extends JFrame {
                     System.out.println(messege);
                     Client.currentCommand = messege;
 
-                    Client.asd = false;
+                    Client.inputFlag = false;
                     messege = "";
 
                     input.setText("");
@@ -180,7 +180,7 @@ public class ClientGUI extends JFrame {
             System.out.println(messege);
            Client.currentCommand = messege;
            input.setText("");
-           Client.asd = false;
+           Client.inputFlag = false;
            messege = "";
            input.setCaretPosition(0);
             scrollPane.getVerticalScrollBar().getMaximum();
@@ -195,7 +195,7 @@ public class ClientGUI extends JFrame {
             if(btn.getText().equals("Manual"))
             {
                 Client.currentCommand="m";
-                Client.asd = false;
+                Client.inputFlag = false;
                 container.remove(auto);
                 container.remove(manual);
                 createInputLine(container,constraints,3,5,input);
@@ -206,7 +206,7 @@ public class ClientGUI extends JFrame {
             if(btn.getText().equals("Auto"))
             {
                 Client.currentCommand="a";
-                Client.asd = false;
+                Client.inputFlag = false;
                 container.remove(auto);
                 container.remove(manual);
                 createInputLine(container,constraints,3,5,input);
@@ -238,9 +238,9 @@ public class ClientGUI extends JFrame {
               button.setForeground(Color.WHITE);
               button.setOpaque(true);
 
-              johnsnow.setBackground(Color.DARK_GRAY);
-              johnsnow.setForeground(Color.WHITE);
-              johnsnow.setOpaque(true);
+              serverMessage.setBackground(Color.DARK_GRAY);
+              serverMessage.setForeground(Color.WHITE);
+              serverMessage.setOpaque(true);
 
               input.setBackground(Color.DARK_GRAY);
               input.setForeground(Color.WHITE);
@@ -266,9 +266,9 @@ public class ClientGUI extends JFrame {
                 textArea.setForeground(Color.BLACK);
                 textArea.setOpaque(true);
 
-                johnsnow.setBackground(Color.WHITE);
-                johnsnow.setForeground(Color.BLACK);
-                johnsnow.setOpaque(true);
+                serverMessage.setBackground(Color.WHITE);
+                serverMessage.setForeground(Color.BLACK);
+                serverMessage.setOpaque(true);
 
                 button.setBackground(Color.WHITE);
                 button.setForeground(Color.black);

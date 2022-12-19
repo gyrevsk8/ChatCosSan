@@ -75,6 +75,8 @@ public class Client {
                 while (socket.isConnected()) {
                     try {
                         msgFromGroupChat = bufferedReader.readLine(); // Считываем сообщение
+                       // gui.userlist.setText(msgFromGroupChat.substring(msgFromGroupChat.indexOf("%"),msgFromGroupChat.indexOf("&")));
+                        //System.out.println(gui.userlist.getText());
                         System.out.println(msgFromGroupChat);
                         JScrollBar vertical = gui.scrollPane.getVerticalScrollBar();
                         gui.textArea.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -110,7 +112,7 @@ public class Client {
 
 
     static String currentCommand = "a";
-    static boolean asd = true;
+    static boolean inputFlag = true;
     static ClientGUI gui = new ClientGUI();
     public static void main(String[] args) throws Exception {
         IPHandler iph = new IPHandler();
@@ -118,7 +120,7 @@ public class Client {
 
 
 
-        gui.johnsnow.setText("Manual or Auto?");
+        gui.serverMessage.setText("Manual or Auto?");
         gui.setVisible(true);
         String ip = new String();
         sleepe();// этот метод усыпляет поток
@@ -126,46 +128,35 @@ public class Client {
         if(currentCommand.equals("m")) {
 
             System.out.println("Manual");
-            gui.johnsnow.setText("Manual \n IP:");
+            gui.serverMessage.setText("Manual \n IP:");
             ip = iph.ipset();
         }
         if(currentCommand.equals("a"))
         {
             System.out.println("Auto");
-            gui.johnsnow.setText("Auto");
+            gui.serverMessage.setText("Auto");
             ip=iph.ipautoset();
             System.out.println("Autodetected ip: "+ip);
-            gui.johnsnow.setText("Autodetected ip: "+ip);
+            gui.serverMessage.setText("Autodetected ip: "+ip);
         }
 
+        String username = null;
+        String phonenumber = null;
+        String password = null;
 
         System.out.println("IP seted");//отладка
-        gui.johnsnow.setText("IP seted");
+        gui.serverMessage.setText("IP seted");
         Socket socket = new Socket(ip, 1234);
 
+        username = upinput("Enter yuor username: ");
+        phonenumber = upinput("Enter your phone: ");
+        password = upinput("Enter your password: " );
 
-        System.out.println("Enter your username: ");
-        gui.johnsnow.setText("Enter your username: ");
-        sleepe();
-        String username = currentCommand;
-        // System.out.println(currentCommand);//отладка
 
-        // System.out.println("Enter your phone: ");//отладка  //
-        gui.johnsnow.setText("Enter your phone: ");
-        sleepe();
-        // String phonenumber = scanner.nextLine();
-        String phonenumber = currentCommand;
         String phonenew = Phone.checkPhone(phonenumber);
         System.out.println(phonenew);
-        gui.johnsnow.setText("");
+        gui.serverMessage.setText("");
 
-        System.out.println("Enter your password: ");
-        gui.johnsnow.setText("Enter your password: ");
-        sleepe();
-        String password = currentCommand;
-        System.out.println(password);
-        gui.johnsnow.setText("");
-        //System.out.println(currentCommand);//отладка
 
         Client client = new Client(socket, username, phonenew, password);
 
@@ -175,13 +166,22 @@ public class Client {
     }
 
     static void sleepe() throws InterruptedException {
-        while(asd)
+        while(inputFlag)
         {
             TimeUnit.MILLISECONDS.sleep(300);
         }
         JScrollBar vertical = gui.scrollPane.getVerticalScrollBar();
         vertical.setValue( vertical.getMaximum() );
-        asd = true;//после его использования всегда должен стоять asd=true;
+        inputFlag = true;//после его использования всегда должен стоять inputFlag=true;
+    }
+    static String upinput(String message) throws InterruptedException {
+        String currentString;
+        System.out.println(message );
+        gui.serverMessage.setText(message );
+        sleepe();
+        currentString = currentCommand;
+        gui.serverMessage.setText("");
+        return currentString;
     }
 
 }

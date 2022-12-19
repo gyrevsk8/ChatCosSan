@@ -4,7 +4,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class ClientHandler implements Runnable,ClientF{
+public class ClientHandler implements Runnable,ClientF {
 
     public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>(); // Для того чтобы прокрутить всех юзеров
     // (для последующей отправки сообщений через BufferWriter)
@@ -19,6 +19,7 @@ public class ClientHandler implements Runnable,ClientF{
 
     public ClientHandler(Socket socket) {
         try {
+
             this.socket = socket;
 
             // В java есть два типа потоков: поток байтов и поток символов.
@@ -32,21 +33,19 @@ public class ClientHandler implements Runnable,ClientF{
             this.clientUsername = bufferedReader.readLine(); // Считываем имя пользователя
             this.clientPhone = bufferedReader.readLine();
             this.clientPassword = bufferedReader.readLine();
-
+            bufferedWriter.write(clientHandlers.toString());
             DatabaseHandler dbHandler = new DatabaseHandler();
 
             dbHandler.singUpUser(clientUsername, clientPhone, clientPassword);
 
 
             clientHandlers.add(this); // Добавляем пользователя в массив
+            System.out.println(clientHandlers.toString());
             broadcastMessage("SERVER: " + clientUsername + " has entered the chat");
-            Client.gui.textArea.setText(Client.gui.textArea.getText()+"<p>"+"SERVER: " + clientUsername + " has entered the chat");
         } catch (IOException e) {
             closeEverything(socket, bufferedReader, bufferedWriter);
         }
     }
-
-
 
 
     @Override
@@ -68,12 +67,11 @@ public class ClientHandler implements Runnable,ClientF{
 
     public void broadcastMessage(String messageToSend) {
 
+
         for (ClientHandler clientHandler : clientHandlers) {// цикл for each
             try {
                 if (!clientHandler.clientUsername.equals(clientUsername)) {
-                    clientHandler.bufferedWriter.write('\n'+messageToSend);
-
-                    Client.gui.textArea.setText(Client.gui.textArea.getText()+"<p>"+clientUsername+":"+messageToSend);
+                    clientHandler.bufferedWriter.write('\n' + messageToSend);
                     clientHandler.bufferedWriter.newLine(); // Говорит - брат, я отправил сообщение, не нужно больше ожидать текст
                     clientHandler.bufferedWriter.flush(); // Очищаем буфер
                 }
@@ -84,10 +82,10 @@ public class ClientHandler implements Runnable,ClientF{
     }
 
     public void removeClientHandler() { // Если клиент отключился, мы его удаляем, потому, что нам больше не нужно отправлять ему сообщения
+
+
         clientHandlers.remove(this);
         broadcastMessage("SERVER: " + clientUsername + " has left the chat!");
-        //  Client.gui.addUserlist(Client.gui.clientUsernames,);
-        Client.gui.textArea.setText(Client.gui.textArea.getText()+"<p>"+"SERVER: " + clientUsername + " has left the chat!");
 
     }
 
@@ -105,6 +103,13 @@ public class ClientHandler implements Runnable,ClientF{
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    void demonstateHandlers() throws IOException {
+        for (ClientHandler clientHandler : clientHandlers) {
+            clientHandler.bufferedWriter.write("%"+clientHandler.clientUsername+"&");
+
         }
     }
 }
