@@ -6,77 +6,75 @@ import java.util.concurrent.TimeUnit;
 public class Client {
 
     private Socket socket;
-    private BufferedReader bufferedReader;
-    private BufferedWriter bufferedWriter;
+    private BufferedReader bufferedReader; //Читает текст из потока ввода символов
+    private BufferedWriter bufferedWriter; // Класс BufferedWriter записывает текст в поток
     private String username ;
-
     private String phonenumber;
     private String password;
-
-    Logger logger = new Logger();
-    // IPGet ipg = new IPGet();
-    public Client(Socket socket, String username,String phonenumber, String password) {
+    public Client(Socket socket, String username,String phonenumber, String password) { //Связываемся с серваком, в частности с ClientHandler
         try {
             this.socket = socket;
 
+            //Socket имеет выходной поток, который мы можем использовать для отправки данных и входной поток для получения данных
+
             // В java есть два типа потоков: поток байтов и поток символов.
             // Нам нужен поток символов.
-            // В java поток символов "оканчивается на Writer", а поток байтов на Stream.
-            // Поэтому мы делаем такую обертку.
+            // Так как мы получаем поток байтов, то нам нужно обернуть конструкцию
+            // В java поток символов "оканчивается на условный Writer", а поток байтов на Stream.
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-            bufferedWriter.write(username + "\n");
-            bufferedWriter.write(phonenumber + "\n");
-            bufferedWriter.write(password + "\n");
-            bufferedWriter.flush();
+            bufferedWriter.write(username + "\n"); //Передаем имя пользователя
+            bufferedWriter.write(phonenumber + "\n"); //Передаем номер телефона
+            bufferedWriter.write(password + "\n"); //Передаем пароль
+            bufferedWriter.flush(); // Очищаем буфер
 
             this.username = username;
             this.phonenumber = phonenumber;
             this.password = password;
-        } catch (IOException e) {
-            closeEverything(socket, bufferedReader, bufferedWriter);
+
+        } catch (IOException e) { // Ловим ошибку ввода-вывода
+            closeEverything(socket, bufferedReader, bufferedWriter); // Если поймали ее, закрываем соединение
         }
     }
 
-    public String getName(){
+    public String getName(){ // Нужно чисто для JUnit теста
         return username;
     }
-    public void sendMessage() {
+    public void sendMessage() { // Метод отправки сообщений
         try {
-            while (socket.isConnected()) {
+            while (socket.isConnected()) { // Пока мы подключены
                 Client.sleepe();
                 String messageToSend =  currentCommand;
-                bufferedWriter.write(username + ":" + messageToSend);
+                bufferedWriter.write(username + ":" + messageToSend); // Отправляем сообщение
                 gui.textArea.setText(gui.textArea.getText()+"<p>"+username+":"+messageToSend);
                 JScrollBar vertical = gui.scrollPane.getVerticalScrollBar();
                 vertical.setValue( vertical.getMaximum() );
-                logger.setNewLogMessage(username,phonenumber, messageToSend);
                 if(password.length()>0)
                 {
                     System.out.println("Well pass");
                 }
-                bufferedWriter.newLine();
-                bufferedWriter.flush();
+                bufferedWriter.newLine(); // Говорит: "Брат, я отправил сообщение, не нужно больше ожидать текст".
+                bufferedWriter.flush(); // Очищаем буфер
             }
-        } catch (IOException e) {
-            closeEverything(socket, bufferedReader, bufferedWriter);
+        } catch (IOException e) { // Ловим ошибку ввода-вывода
+            closeEverything(socket, bufferedReader, bufferedWriter); // Если поймали ее, закрываем соединение
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void listenForMessage() { // Нужно использовать еще один поток. Мы не будем дожидаться получения сообщения, чтобы отправить свое, мы сможем сделать это сразу
+    public void listenForMessage() { // Нужно использовать еще один поток. Слушание сообщений - "блокирующая" операцияю
+        // Мы не будем дожидаться получения сообщения, чтобы отправить свое, мы сможем сделать это сразу.
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 String msgFromGroupChat;
 
-                while (socket.isConnected()) {
+                while (socket.isConnected()) { // Пока мы подключены
                     try {
                         msgFromGroupChat = bufferedReader.readLine(); // Считываем сообщение
-                       // gui.userlist.setText(msgFromGroupChat.substring(msgFromGroupChat.indexOf("%"),msgFromGroupChat.indexOf("&")));
-                        //System.out.println(gui.userlist.getText());
                         System.out.println(msgFromGroupChat);
                         JScrollBar vertical = gui.scrollPane.getVerticalScrollBar();
                         gui.textArea.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -86,25 +84,35 @@ public class Client {
                         gui.textArea.setHorizontalAlignment(SwingConstants.LEFT);
                         gui.textArea.setOpaque(true);
                         vertical.setValue( vertical.getMaximum() );
-                    } catch (IOException e) {
-                        closeEverything(socket, bufferedReader, bufferedWriter);
+                    } catch (IOException e) { // Ловим ошибку ввода-вывода
+                        closeEverything(socket, bufferedReader, bufferedWriter); // Если поймали ее, закрываем соединение
                     }
                 }
             }
-        }).start();
+        }).start(); // Создали объект выше и здесь сразу вызвали его.
     }
 
-    public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter){
+    public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter) {
+        //Используется, для закрытия соединения(socket) и потоков(BufferedReader, BufferedWriter)
+
         try {
-            if (bufferedReader != null) { // Если bufferReader окажется null, выдаст нам ошибку, т.к метод close() чувтсвителен к этому. Этот кусок это правит.
+            // Если bufferReader окажется null, выдаст нам ошибку, т.к метод close() чувтсвителен к этому. Этот кусок это правит.
+            if (bufferedReader != null) {
                 bufferedReader.close();
             }
-            if (bufferedWriter != null) { // Если bufferWriter окажется null, выдаст нам ошибку, т.к метод close() чувтсвителен к этому. Этот кусок это правит.
+
+            // Если bufferWriter окажется null, выдаст нам ошибку, т.к метод close() чувтсвителен к этому. Этот кусок это правит.
+            if (bufferedWriter != null) {
+
                 bufferedWriter.close();
             }
-            if (socket != null) { // Если socket окажется null, выдаст нам ошибку, т.к метод close() чувтсвителен к этому. Этот кусок это правит.
+
+            // Если socket окажется null, выдаст нам ошибку, т.к метод close() чувтсвителен к этому. Этот кусок это правит.
+            if (socket != null) {
+
                 socket.close();
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -158,11 +166,9 @@ public class Client {
         gui.serverMessage.setText("");
 
 
-        Client client = new Client(socket, username, phonenew, password);
-
-        client.listenForMessage();
-
-        client.sendMessage();
+        Client client = new Client(socket, username, phonenew, password); // Просто создали экземпляр класса
+        client.listenForMessage(); // Запускаем метод для прослушивания сообщений
+        client.sendMessage(); // Запускаем метод для отправки сообщений
     }
 
     static void sleepe() throws InterruptedException {
