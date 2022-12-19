@@ -5,9 +5,12 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.time.LocalDateTime;
 
-public class DatabaseHandler extends Configs{
+public class DatabaseHandler extends Configs{ // extends это ключевое слово,
+    // предназначенное для расширения реализации какого-то существующего класса
+    //Создается новый класс на основе существующего, и этот новый класс расширяет (extends) возможности старого.
 
-    Connection dbConnection;
+    Connection dbConnection; // Определяет основное поведение подключений к базе данных
+    // и предоставляет базовый класс для подключений, связанных с базой данных.
 
     public Connection getDbConnection() throws ClassNotFoundException, SQLException {
         String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
@@ -25,6 +28,7 @@ public class DatabaseHandler extends Configs{
 
         try {
             PreparedStatement prSt = getDbConnection().prepareStatement(insert);
+            // PreparedStatement используется для выполнения параметризованного запроса.
             prSt.setString(1, username);
             prSt.setString(2, phone);
             prSt.setString(3, password);
@@ -61,7 +65,7 @@ public class DatabaseHandler extends Configs{
     public ResultSet getUsername(String username, String password){
         ResultSet resSet = null;
 
-        String select = "SELECT * FROM " + Const.USER_TABLE +
+        String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE " +
                 Const.USER_NAME + "=? AND " + Const.USER_PASS + "=?";
 
         try {
