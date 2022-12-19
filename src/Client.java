@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class Client {
@@ -115,7 +114,6 @@ public class Client {
     static ClientGUI gui = new ClientGUI();
     public static void main(String[] args) throws Exception {
         IPHandler iph = new IPHandler();
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Manual or Auto?");
 
 
@@ -179,7 +177,7 @@ public class Client {
     static void sleepe() throws InterruptedException {
         while(asd)
         {
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.MILLISECONDS.sleep(300);
         }
         JScrollBar vertical = gui.scrollPane.getVerticalScrollBar();
         vertical.setValue( vertical.getMaximum() );
