@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class ClientGUI extends JFrame {
 
     protected boolean light = true;
-    JLabel label;
     JButton button = new JButton("Enter");
     JButton outfit = new JButton("☽");
     JButton manual = new JButton("Manual");
@@ -22,26 +21,17 @@ public class ClientGUI extends JFrame {
     Container container = this.getContentPane();
     GridBagConstraints constraints = new GridBagConstraints();
 
-    void createInputLine(Container container, GridBagConstraints constraints, int x, int y, JTextField input)
-    {
-        constraints.gridx = x;
-        constraints.gridy = y;
-        container.add(input,constraints);
-
-    }
 
     public ClientGUI()
     {
 
         super("Client ");
+
         ImageIcon icon = new ImageIcon("wp.jpg");
         icon = new ImageIcon(icon.getImage().getScaledInstance(300,150, BufferedImage.SCALE_SMOOTH));
         ImageIcon finalIcon = icon;
         setIconImage(icon.getImage());
 
-        //scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-
-     //   textArea.setOpaque(false);
         this.setBounds(150, 150, 480, 400);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -51,7 +41,6 @@ public class ClientGUI extends JFrame {
         textArea.setText("<html>");
         textArea.setBackground(Color.lightGray);
         textArea.setOpaque(true);
-        //textArea.setPreferredSize(new Dimension(280,250));
         textArea.setVerticalAlignment(SwingConstants.BOTTOM);
 
         userlist.setPreferredSize(new Dimension(100,250));
@@ -67,13 +56,12 @@ public class ClientGUI extends JFrame {
         button.setFocusPainted(false);
 
         userlist.setBackground(Color.LIGHT_GRAY);
-       // userlist.setBorder(BorderFactory.createEmptyBorder(1,1,1,1));
         userlist.setVerticalAlignment(SwingConstants.TOP);
         userlist.setOpaque(true);
 
-       // scrollPane.setMinimumSize(new Dimension(280,150));
+
        scrollPane.setPreferredSize(new Dimension(280,260));
-        //scrollPane.setWheelScrollingEnabled(true);
+       scrollPane.setWheelScrollingEnabled(true);
 
 
         container.setLayout(new GridBagLayout());
@@ -314,6 +302,13 @@ public class ClientGUI extends JFrame {
         container.revalidate();
     }
 
+    void createInputLine(Container container, GridBagConstraints constraints, int x, int y, JTextField input)
+    {
+        constraints.gridx = x;
+        constraints.gridy = y;
+        container.add(input,constraints);
+
+    }
 
 
 }
