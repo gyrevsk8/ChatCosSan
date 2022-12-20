@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AuthGUI extends JFrame {
@@ -11,7 +12,7 @@ public class AuthGUI extends JFrame {
     GridBagConstraints constraints = new GridBagConstraints();
     public AuthGUI() {
         super("Authorization");
-        this.setBounds(750, 150, 250, 150);
+        this.setBounds(860, 400, 250, 150);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         buttonLeft.setPreferredSize(new Dimension(100,23));
@@ -36,14 +37,26 @@ public class AuthGUI extends JFrame {
         constraints.gridy = 2;
         constraints.gridx = 1;
         constraints.gridwidth = 4;
-        container.add(input,constraints);
+        //container.add(input,constraints);
         container.revalidate();
 
 
-       //buttonRight.addActionListener(new SignListner());
-        //buttonLeft.addActionListener(new SignListner());
+       buttonRight.addActionListener(new ButtonListener());
+       buttonLeft.addActionListener(new ButtonListener());
     }
+ class ButtonListener implements ActionListener{
 
+        public void actionPerformed(ActionEvent e)
+     {
+         e.getActionCommand();
+         if(e.getActionCommand().equals("Sign up"))
+         {
+             Client.currentCommand = "su";
+             Client.inputFlag = false;
+         }
+     }
+
+    }
 
 
 }

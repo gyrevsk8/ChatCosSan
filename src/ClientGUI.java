@@ -32,7 +32,7 @@ public class ClientGUI extends JFrame {
         ImageIcon finalIcon = icon;
         setIconImage(icon.getImage());
 
-        this.setBounds(150, 150, 480, 400);
+        this.setBounds(840, 150, 480, 400);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         getRootPane().setBorder(BorderFactory.createEmptyBorder(0,5,0,5));
