@@ -31,10 +31,10 @@ public class AuthGUI extends JFrame {
         constraints.gridx = 1;//координата по х
         constraints.gridwidth = 4;//ширина 4 клетки
         //container.add(input,constraints);
-        container.revalidate();//
+        container.revalidate();//перепроверяет элементы в контейнере
 
 
-       buttonRight.addActionListener(new ButtonListener());
+       buttonRight.addActionListener(new ButtonListener());//добавляем слушатели к кнопкам
        buttonLeft.addActionListener(new ButtonListener());
     }
  class ButtonListener implements ActionListener{
@@ -42,12 +42,12 @@ public class AuthGUI extends JFrame {
         public void actionPerformed(ActionEvent e)
      {
          e.getActionCommand();
-         if(e.getActionCommand().equals("Sign up"))
+         if(e.getActionCommand().equals("Sign up"))//если кнопка с именем *** то делаем этот блок
          {
              Client.currentCommand = "su";
              Client.inputFlag = false;
          }
-         if(e.getActionCommand().equals("Sign in"))
+         if(e.getActionCommand().equals("Sign in"))//если кнопка с именем *** то делаем этот блок
          {
              Client.currentCommand = "si";
              Client.inputFlag = false;
