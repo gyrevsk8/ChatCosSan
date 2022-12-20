@@ -41,11 +41,11 @@ public class Client {
                 String result = bufferedReader.readLine();
                 if(result.equals("NULL"))
                 {
-                    gui.input.setText("Not registrated");
+                    gui.textArea.setText("Not registrated");
                 }
                 if(result.equals(null))
                 {
-                    gui.input.setText("Not registrated");
+                    gui.textArea.setText("Not registrated");
 
                 }
             }
@@ -153,6 +153,50 @@ public class Client {
         {
             System.out.println("su");
             agui.show(false);
+            System.out.println("Manual or Auto?");
+            gui.serverMessage.setText("Manual or Auto?");
+            gui.setVisible(true);
+            String ip = new String();
+            sleepe();// этот метод усыпляет поток
+
+            if(currentCommand.equals("m")) {
+
+                System.out.println("Manual");
+                gui.serverMessage.setText("Manual \n IP:");
+                ip = iph.ipset();
+            }
+            if(currentCommand.equals("a"))
+            {
+                System.out.println("Auto");
+                gui.serverMessage.setText("Auto");
+                ip=iph.ipautoset();
+                System.out.println("Autodetected ip: "+ip);
+                gui.serverMessage.setText("Autodetected ip: "+ip);
+            }
+
+            String username = null;
+            String phonenumber = null;
+            String password = null;
+
+            System.out.println("IP seted");//отладка
+            gui.serverMessage.setText("IP seted");
+            Socket socket = new Socket(ip, 1234);
+
+            username = upinput("Enter yuor username: ");
+            phonenumber = upinput("Enter your phone: ");
+            String phonenew = Phone.checkPhone(phonenumber);
+            password = upinput("Enter your password: " );
+
+
+
+            System.out.println(phonenew);
+            gui.serverMessage.setText("");
+
+
+            String logic;
+            Client client = new Client(socket, username, phonenew, password, logic = "su"); // Просто создали экземпляр класса
+            client.listenForMessage(); // Запускаем метод для прослушивания сообщений
+            client.sendMessage(); // Запускаем метод для отправки сообщений
         }
         if(currentCommand.equals("si"))
         {
@@ -200,50 +244,7 @@ public class Client {
         }
 
 
-        System.out.println("Manual or Auto?");
-        gui.serverMessage.setText("Manual or Auto?");
-        gui.setVisible(true);
-        String ip = new String();
-        sleepe();// этот метод усыпляет поток
 
-        if(currentCommand.equals("m")) {
-
-            System.out.println("Manual");
-            gui.serverMessage.setText("Manual \n IP:");
-            ip = iph.ipset();
-        }
-        if(currentCommand.equals("a"))
-        {
-            System.out.println("Auto");
-            gui.serverMessage.setText("Auto");
-            ip=iph.ipautoset();
-            System.out.println("Autodetected ip: "+ip);
-            gui.serverMessage.setText("Autodetected ip: "+ip);
-        }
-
-        String username = null;
-        String phonenumber = null;
-        String password = null;
-
-        System.out.println("IP seted");//отладка
-        gui.serverMessage.setText("IP seted");
-        Socket socket = new Socket(ip, 1234);
-
-        username = upinput("Enter yuor username: ");
-        phonenumber = upinput("Enter your phone: ");
-        String phonenew = Phone.checkPhone(phonenumber);
-        password = upinput("Enter your password: " );
-
-
-
-        System.out.println(phonenew);
-        gui.serverMessage.setText("");
-
-
-        String logic;
-        Client client = new Client(socket, username, phonenew, password, logic = "su"); // Просто создали экземпляр класса
-        client.listenForMessage(); // Запускаем метод для прослушивания сообщений
-        client.sendMessage(); // Запускаем метод для отправки сообщений
     }
 
     static void sleepe() throws InterruptedException {

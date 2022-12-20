@@ -51,7 +51,7 @@ public class ClientHandler implements Runnable,ClientF {  //Чтобы полу�
 
 
 
-           DatabaseHandler dbHandler = new DatabaseHandler(); // База данных
+            DatabaseHandler dbHandler = new DatabaseHandler(); // База данных
             dbHandler.singUpUser(clientUsername, clientPhone, clientPassword); // Регистрируем пользователя
             DbLogin(clientUsername, clientPassword);
 
