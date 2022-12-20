@@ -1,6 +1,8 @@
 import javax.xml.crypto.Data;
 import java.io.*;
 import java.net.Socket;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -38,9 +40,10 @@ public class ClientHandler implements Runnable,ClientF {  //Чтобы полу�
             this.clientPassword = bufferedReader.readLine();
 
 
-            DatabaseHandler dbHandler = new DatabaseHandler(); // База данных
-            dbHandler.singUpUser(clientUsername, clientPhone, clientPassword); // Регистрируем пользователя
 
+           DatabaseHandler dbHandler = new DatabaseHandler(); // База данных
+            dbHandler.singUpUser(clientUsername, clientPhone, clientPassword); // Регистрируем пользователя
+            DbLogin(clientUsername, clientPassword);
 
             clientHandlers.add(this); // Добавляем пользователя в массив
 
@@ -57,11 +60,20 @@ public class ClientHandler implements Runnable,ClientF {  //Чтобы полу�
             broadcastMessage("SERVER: " + clientUsername + " has entered the chat");
             // Отправляем сообщение всем пользователям, что подключился новый пользователь
 
-        } catch (IOException e) { // Ловим ошибку ввода-вывода
+        } catch (IOException | SQLException e) { // Ловим ошибку ввода-вывода
             closeEverything(socket, bufferedReader, bufferedWriter); // Если поймали ее, закрываем соединение
         }
     }
 
+    public void DbLogin(String clientUsername, String clientPassword) throws IOException, SQLException {
+        DatabaseHandler dbHandler = new DatabaseHandler();
+        ResultSet result = dbHandler.getUsername(clientUsername, clientPassword);
+
+        while(result.next()) {
+            System.out.println("SHIIIIIIIIIT");
+        }
+    }
+        
 
     @Override
     public void run() { // Мы реализовали интерфейс Runnable, теперь же мы должны переопределить его метод
