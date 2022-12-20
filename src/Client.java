@@ -143,13 +143,13 @@ public class Client {
 
     static String currentCommand = "a";
     static boolean inputFlag = true;
-    static ClientGUI gui = new ClientGUI();
+    static ClientGUI gui = new ClientGUI();//экземпляр интерфейса пользователя
     public static void main(String[] args) throws Exception {
-        IPHandler iph = new IPHandler();
-        AuthGUI agui = new AuthGUI();
-        agui.show(true);
-        sleepe();
-        if(currentCommand.equals("su"))
+        IPHandler iph = new IPHandler();//экземпляр обработчика
+        AuthGUI agui = new AuthGUI();//экземпляр окошка выбора
+        agui.show(true);//включаем окошко выбора
+        sleepe();//выполняет функцию усыпления потока
+        if(currentCommand.equals("su"))//определяем режим работы
         {
             System.out.println("su");
             agui.show(false);
@@ -159,13 +159,13 @@ public class Client {
             String ip = new String();
             sleepe();// этот метод усыпляет поток
 
-            if(currentCommand.equals("m")) {
+            if(currentCommand.equals("m")) {//определяем режим работы
 
                 System.out.println("Manual");
                 gui.serverMessage.setText("Manual \n IP:");
                 ip = iph.ipset();
             }
-            if(currentCommand.equals("a"))
+            if(currentCommand.equals("a"))//определяем режим работы
             {
                 System.out.println("Auto");
                 gui.serverMessage.setText("Auto");
@@ -197,7 +197,7 @@ public class Client {
             Client client = new Client(socket, username, phonenew, password, logic = "su"); // Просто создали экземпляр класса
             client.listenForMessage(); // Запускаем метод для прослушивания сообщений
             client.sendMessage(); // Запускаем метод для отправки сообщений
-        }
+        }//определяем режим работы
         if(currentCommand.equals("si"))
         {
             System.out.println("Manual or Auto?");
@@ -208,13 +208,13 @@ public class Client {
             String ip = new String();
             sleepe();// этот метод усыпляет поток
 
-            if(currentCommand.equals("m")) {
+            if(currentCommand.equals("m")) {//определяем режим работы
 
                 System.out.println("Manual");
                 gui.serverMessage.setText("Manual \n IP:");
                 ip = iph.ipset();
             }
-            if(currentCommand.equals("a"))
+            if(currentCommand.equals("a"))//определяем режим работы
             {
                 System.out.println("Auto");
                 gui.serverMessage.setText("Auto");
