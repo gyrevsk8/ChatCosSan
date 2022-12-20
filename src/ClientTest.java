@@ -7,7 +7,7 @@ class ClientTest {
     @org.junit.jupiter.api.Test
     void testsendMessage() {
         Socket socket = new Socket();
-        Client client = new Client(socket, "who", "phone", "pass");
+        Client client = new Client(socket, "who", "phone", "pass","su");
         assertEquals(null, client.getName());
     }
 }
