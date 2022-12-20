@@ -4,10 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AuthGUI extends JFrame {
-    JLabel label = new JLabel("");
+    JLabel userSign = new JLabel("Username");
+    JLabel passwordSign = new JLabel("Password");
     JButton buttonLeft = new JButton("Sign in");
     JButton buttonRight = new JButton("Sign up");
-    JTextField input = new JTextField("?",15);
+    JTextField input1 = new JTextField("",15);
+    JTextField input2 = new JTextField("",15);
     Container container = this.getContentPane();
     GridBagConstraints constraints = new GridBagConstraints();
     public AuthGUI() {
@@ -19,12 +21,6 @@ public class AuthGUI extends JFrame {
         buttonRight.setPreferredSize(new Dimension(100,23));
         container.setLayout(new GridBagLayout());
         constraints.fill = GridBagConstraints.HORIZONTAL;
-
-
-        constraints.gridwidth = 2;
-        constraints.gridy = 0;
-        constraints.gridx = 1;
-        container.add(label,constraints);
 
         constraints.gridwidth = 1;
         constraints.gridy = 1;
@@ -53,6 +49,36 @@ public class AuthGUI extends JFrame {
          {
              Client.currentCommand = "su";
              Client.inputFlag = false;
+         }
+         if(e.getActionCommand().equals("Sign in"))
+         {
+             input1.setPreferredSize(new Dimension(100,23));
+             input2.setPreferredSize(new Dimension(100,23));
+             container.remove(buttonLeft);
+             container.remove(buttonRight);
+             constraints.gridwidth = 1;
+             constraints.gridx = 1;
+             constraints.gridy = 1;
+             container.add(userSign,constraints);
+             constraints.gridx = 3;
+             constraints.gridy = 1;
+             container.add(passwordSign,constraints);
+
+
+             constraints.gridy = 2;
+             constraints.gridx = 0;
+             constraints.gridwidth = 2;
+             container.add(input1);
+
+             constraints.gridy = 0;
+             constraints.gridx = 0;
+             constraints.gridy = 4;
+             container.add(input2);
+
+             container.revalidate();
+             container.repaint();
+             //DatabaseHandler dbhandeler = new DatabaseHandler();
+            // dbhandeler.getUsername("oleg","palich");
          }
      }
 
