@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.Socket;
 import java.util.concurrent.TimeUnit;
@@ -75,7 +76,7 @@ public class Client {
                 while (socket.isConnected()) { // Пока мы подключены
                     try {
                         msgFromGroupChat = bufferedReader.readLine(); // Считываем сообщение
-                        gui.userlist.setText(msgFromGroupChat.substring(msgFromGroupChat.indexOf("@"),msgFromGroupChat.indexOf("$"+1)));
+                        // gui.userlist.setText(msgFromGroupChat.substring(msgFromGroupChat.indexOf("@"),msgFromGroupChat.indexOf("$"+1)));
                         System.out.println(msgFromGroupChat);
                         JScrollBar vertical = gui.scrollPane.getVerticalScrollBar();
                         gui.textArea.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -127,7 +128,12 @@ public class Client {
         IPHandler iph = new IPHandler();
         AuthGUI agui = new AuthGUI();
         agui.show(true);
-
+        sleepe();
+        if(currentCommand.equals("su"))
+        {
+            System.out.println("su");
+            agui.show(false);
+        }
 
 
         System.out.println("Manual or Auto?");
