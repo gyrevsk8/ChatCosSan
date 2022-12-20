@@ -11,7 +11,6 @@ public class ClientHandler implements Runnable,ClientF {  //Чтобы полу�
     // для того чтобы прокрутить всех юзеров (для последующей отправки сообщений через BufferWriter)
 
     //Static нужен, чтобы этот ArrayList принадлежал только классу, а не всем объектам класса
-
     private Socket socket; // Для установления соединения между клиентом и сервером
     private BufferedReader bufferedReader; // Для того чтобы считывать отправленные сообщения
     private BufferedWriter bufferedWriter; // Для того чтобы отправить сообщение клиенту
@@ -37,16 +36,22 @@ public class ClientHandler implements Runnable,ClientF {  //Чтобы полу�
             this.clientUsername = bufferedReader.readLine(); // Считываем имя пользователя
             this.clientPhone = bufferedReader.readLine();
             this.clientPassword = bufferedReader.readLine();
-            bufferedWriter.write(clientHandlers.toString());
+
 
             DatabaseHandler dbHandler = new DatabaseHandler(); // База данных
             dbHandler.singUpUser(clientUsername, clientPhone, clientPassword); // Регистрируем пользователя
 
 
             clientHandlers.add(this); // Добавляем пользователя в массив
-            // Представляет собой объект клиентского обработчика, поэтому мы передаем его(this) в массив.
 
-            System.out.println(clientHandlers.toString());
+            // Представляет собой объект клиентского обработчика, поэтому мы передаем его(this) в массив.
+            bufferedWriter.write("@");
+            for (ClientHandler clientHandler:clientHandlers) {
+                bufferedWriter.write(clientHandler.clientUsername+'\n');
+                bufferedWriter.flush();
+            }
+            bufferedWriter.write("$");
+
 
             broadcastMessage("SERVER: " + clientUsername + " has entered the chat");
             // Отправляем сообщение всем пользователям, что подключился новый пользователь

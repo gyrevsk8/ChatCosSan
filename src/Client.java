@@ -75,6 +75,7 @@ public class Client {
                 while (socket.isConnected()) { // Пока мы подключены
                     try {
                         msgFromGroupChat = bufferedReader.readLine(); // Считываем сообщение
+                        gui.userlist.setText(msgFromGroupChat.substring(msgFromGroupChat.indexOf("@"),msgFromGroupChat.indexOf("$"+1)));
                         System.out.println(msgFromGroupChat);
                         JScrollBar vertical = gui.scrollPane.getVerticalScrollBar();
                         gui.textArea.setHorizontalAlignment(SwingConstants.RIGHT);

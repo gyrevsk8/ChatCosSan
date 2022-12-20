@@ -35,9 +35,9 @@ public class DatabaseHandler extends Configs{ // extends это ключевое
 
             prSt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println(e);
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println(e);
         }
 
     }
@@ -55,9 +55,9 @@ public class DatabaseHandler extends Configs{ // extends это ключевое
 
             prSt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println(e);
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println(e);
         }
 
     }
