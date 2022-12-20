@@ -31,7 +31,7 @@ public class AuthGUI extends JFrame {
         constraints.gridx = 1;//координата по х
         constraints.gridwidth = 4;//ширина 4 клетки
         //container.add(input,constraints);
-        container.revalidate();
+        container.revalidate();//
 
 
        buttonRight.addActionListener(new ButtonListener());

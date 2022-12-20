@@ -41,11 +41,11 @@ public class Client {
                 String result = bufferedReader.readLine();
                 if(result.equals("NULL"))
                 {
-                    gui.input.setText("Not registrated");
+                    gui.textArea.setText("Not registrated");
                 }
                 if(result.equals(null))
                 {
-                    gui.input.setText("Not registrated");
+                    gui.textArea.setText("Not registrated");
 
                 }
             }
