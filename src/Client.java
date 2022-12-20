@@ -130,9 +130,6 @@ public class Client {
 
 
         System.out.println("Manual or Auto?");
-
-
-
         gui.serverMessage.setText("Manual or Auto?");
         gui.setVisible(true);
         String ip = new String();
