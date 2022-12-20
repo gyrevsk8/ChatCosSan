@@ -16,7 +16,14 @@ public class DatabaseHandler extends Configs{ // extends это ключевое
         String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
 
         Class.forName("com.mysql.cj.jdbc.Driver");
-        dbConnection = DriverManager.getConnection(connectionString, dbUser, dbPass);
+        try {
+            dbConnection = DriverManager.getConnection(connectionString, dbUser, dbPass);
+
+        }
+        catch (NullPointerException e)
+        {
+            System.out.println(e);
+        }
 
         return dbConnection;
     }

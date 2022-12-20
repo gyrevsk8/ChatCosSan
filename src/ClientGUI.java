@@ -10,7 +10,7 @@ public class ClientGUI extends JFrame {
     JButton button = new JButton("Enter");
     JButton outfit = new JButton("☽");
     JButton manual = new JButton("Manual");
-    JButton auto = new JButton("Auto");
+    JButton auto = new JButton("Server set");
     JTextField input = new JTextField("",15);
     public JLabel textArea = new JLabel("DFSDFSDFGSDFG");
 
@@ -85,11 +85,6 @@ public class ClientGUI extends JFrame {
 
         serverMessage.setPreferredSize(new Dimension(280,40));
         container.add(serverMessage,constraints);
-
-        constraints.gridx=0;
-        constraints.gridy = 0;
-        container.add(userlist,constraints);
-
 
         constraints.gridwidth =1;
         constraints.ipadx = 2;
@@ -191,7 +186,7 @@ public class ClientGUI extends JFrame {
                 container.revalidate();
 
             }
-            if(btn.getText().equals("Auto"))
+            if(btn.getText().equals("Server set"))
             {
                 Client.currentCommand="a";
                 Client.inputFlag = false;

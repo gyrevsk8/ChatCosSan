@@ -52,33 +52,8 @@ public class AuthGUI extends JFrame {
          }
          if(e.getActionCommand().equals("Sign in"))
          {
-             input1.setPreferredSize(new Dimension(100,23));
-             input2.setPreferredSize(new Dimension(100,23));
-             container.remove(buttonLeft);
-             container.remove(buttonRight);
-             constraints.gridwidth = 1;
-             constraints.gridx = 1;
-             constraints.gridy = 1;
-             container.add(userSign,constraints);
-             constraints.gridx = 3;
-             constraints.gridy = 1;
-             container.add(passwordSign,constraints);
-
-
-             constraints.gridy = 2;
-             constraints.gridx = 0;
-             constraints.gridwidth = 2;
-             container.add(input1);
-
-             constraints.gridy = 0;
-             constraints.gridx = 0;
-             constraints.gridy = 4;
-             container.add(input2);
-
-             container.revalidate();
-             container.repaint();
-             //DatabaseHandler dbhandeler = new DatabaseHandler();
-            // dbhandeler.getUsername("oleg","palich");
+             Client.currentCommand = "si";
+             Client.inputFlag = false;
          }
      }
 

@@ -19,7 +19,7 @@ public class ClientHandler implements Runnable,ClientF {  //Чтобы полу�
     private String clientUsername; // Имя пользователя
     private String clientPassword; // Пароль
     private String clientPhone; // Номер телефона
-
+    private String logic; // Номер телефона
 
     public ClientHandler(Socket socket) {
         try {
@@ -35,9 +35,19 @@ public class ClientHandler implements Runnable,ClientF {  //Чтобы полу�
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
+            this.logic = bufferedReader.readLine();
+
+
+            if(logic.equals("false"))
             this.clientUsername = bufferedReader.readLine(); // Считываем имя пользователя
             this.clientPhone = bufferedReader.readLine();
             this.clientPassword = bufferedReader.readLine();
+            if(logic.equals("true"))
+            {
+                this.clientUsername = bufferedReader.readLine();
+                this.clientPassword = bufferedReader.readLine();
+                bufferedWriter.write(DbLogin(clientUsername,clientPassword)+"\n");
+            }
 
 
 
@@ -49,13 +59,6 @@ public class ClientHandler implements Runnable,ClientF {  //Чтобы полу�
 
             // Представляет собой объект клиентского обработчика, поэтому мы передаем его(this) в массив.
 
-            bufferedWriter.write("@");
-            for (ClientHandler clientHandler:clientHandlers) {
-                bufferedWriter.write(clientHandler.clientUsername+'|');
-                bufferedWriter.flush();
-            }
-            bufferedWriter.write("$");
-
 
             broadcastMessage("SERVER: " + clientUsername + " has entered the chat");
             // Отправляем сообщение всем пользователям, что подключился новый пользователь
@@ -65,13 +68,23 @@ public class ClientHandler implements Runnable,ClientF {  //Чтобы полу�
         }
     }
 
-    public void DbLogin(String clientUsername, String clientPassword) throws IOException, SQLException {
-        DatabaseHandler dbHandler = new DatabaseHandler();
-        ResultSet result = dbHandler.getUsername(clientUsername, clientPassword);
+    public String DbLogin(String clientUsername, String clientPassword) throws IOException, SQLException {
+        try {
+            DatabaseHandler dbHandler = new DatabaseHandler();
+            ResultSet result = dbHandler.getUsername(clientUsername, clientPassword);
 
-        while(result.next()) {
-            System.out.println("SHIIIIIIIIIT");
+
+            while (result.next()) {
+                System.out.println("CATCH");
+                return "found";
+            }
         }
+        catch (NullPointerException e)
+        {
+            return ("NULL");
+
+        }
+        return null;
     }
         
 

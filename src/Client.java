@@ -12,7 +12,7 @@ public class Client {
     private String username ;
     private String phonenumber;
     private String password;
-    public Client(Socket socket, String username,String phonenumber, String password) { //Связываемся с серваком, в частности с ClientHandler
+    public Client(Socket socket, String username,String phonenumber, String password, String logic) { //Связываемся с серваком, в частности с ClientHandler
         try {
             this.socket = socket;
 
@@ -25,10 +25,30 @@ public class Client {
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-            bufferedWriter.write(username + "\n"); //Передаем имя пользователя
-            bufferedWriter.write(phonenumber + "\n"); //Передаем номер телефона
-            bufferedWriter.write(password + "\n"); //Передаем пароль
-            bufferedWriter.flush(); // Очищаем буфер
+            if(logic.equals("su")) {
+                bufferedWriter.write("false"+ "\n");
+                bufferedWriter.write(username + "\n"); //Передаем имя пользователя
+                bufferedWriter.write(phonenumber + "\n"); //Передаем номер телефона
+                bufferedWriter.write(password + "\n"); //Передаем пароль
+                bufferedWriter.flush(); // Очищаем буфер
+            }
+            if (logic.equals("si"))
+            {
+                bufferedWriter.write("true"+ "\n");
+                bufferedWriter.write(username + "\n"); //Передаем имя пользователя
+                bufferedWriter.write(password + "\n"); //Передаем пароль
+                bufferedWriter.flush(); // Очищаем буфер
+                String result = bufferedReader.readLine();
+                if(result.equals("NULL"))
+                {
+                    gui.input.setText("Not registrated");
+                }
+                if(result.equals(null))
+                {
+                    gui.input.setText("Not registrated");
+
+                }
+            }
 
             this.username = username;
             this.phonenumber = phonenumber;
@@ -134,6 +154,50 @@ public class Client {
             System.out.println("su");
             agui.show(false);
         }
+        if(currentCommand.equals("si"))
+        {
+            System.out.println("Manual or Auto?");
+            gui.serverMessage.setText("Manual or Auto?");
+            gui.setVisible(true);
+            System.out.println("su");
+            agui.show(false);
+            String ip = new String();
+            sleepe();// этот метод усыпляет поток
+
+            if(currentCommand.equals("m")) {
+
+                System.out.println("Manual");
+                gui.serverMessage.setText("Manual \n IP:");
+                ip = iph.ipset();
+            }
+            if(currentCommand.equals("a"))
+            {
+                System.out.println("Auto");
+                gui.serverMessage.setText("Auto");
+                ip=iph.ipautoset();
+                System.out.println("Autodetected ip: "+ip);
+                gui.serverMessage.setText("Autodetected ip: "+ip);
+            }
+
+            String username = null;
+            String password = null;
+
+            System.out.println("IP seted");//отладка
+            gui.serverMessage.setText("IP seted");
+            Socket socket = new Socket(ip, 1234);
+
+            username = upinput("Enter yuor username: ");
+            password = upinput("Enter your password: " );
+
+            gui.serverMessage.setText("");
+
+
+            String logic;
+            Client client = new Client(socket, username, "", password, logic = "si"); // Просто создали экземпляр класса
+            client.listenForMessage(); // Запускаем метод для прослушивания сообщений
+            client.sendMessage(); // Запускаем метод для отправки сообщений
+
+        }
 
 
         System.out.println("Manual or Auto?");
@@ -176,7 +240,8 @@ public class Client {
         gui.serverMessage.setText("");
 
 
-        Client client = new Client(socket, username, phonenew, password); // Просто создали экземпляр класса
+        String logic;
+        Client client = new Client(socket, username, phonenew, password, logic = "su"); // Просто создали экземпляр класса
         client.listenForMessage(); // Запускаем метод для прослушивания сообщений
         client.sendMessage(); // Запускаем метод для отправки сообщений
     }
