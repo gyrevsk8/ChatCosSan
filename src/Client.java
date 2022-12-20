@@ -161,10 +161,11 @@ public class Client {
 
         username = upinput("Enter yuor username: ");
         phonenumber = upinput("Enter your phone: ");
+        String phonenew = Phone.checkPhone(phonenumber);
         password = upinput("Enter your password: " );
 
 
-        String phonenew = Phone.checkPhone(phonenumber);
+
         System.out.println(phonenew);
         gui.serverMessage.setText("");
 

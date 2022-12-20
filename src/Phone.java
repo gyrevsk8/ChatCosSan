@@ -59,6 +59,7 @@ public class Phone {
 
             Scanner scan = new Scanner(System.in);
             System.out.print("\nphone:");
+            Client.gui.serverMessage.setText("Set Phone!");
             Client.sleepe();
             String phone = Client.currentCommand;
             String phoneNew;

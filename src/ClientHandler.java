@@ -45,9 +45,10 @@ public class ClientHandler implements Runnable,ClientF {  //Чтобы полу�
             clientHandlers.add(this); // Добавляем пользователя в массив
 
             // Представляет собой объект клиентского обработчика, поэтому мы передаем его(this) в массив.
+
             bufferedWriter.write("@");
             for (ClientHandler clientHandler:clientHandlers) {
-                bufferedWriter.write(clientHandler.clientUsername+'\n');
+                bufferedWriter.write(clientHandler.clientUsername+'|');
                 bufferedWriter.flush();
             }
             bufferedWriter.write("$");
