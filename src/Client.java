@@ -124,6 +124,11 @@ public class Client {
     static ClientGUI gui = new ClientGUI();
     public static void main(String[] args) throws Exception {
         IPHandler iph = new IPHandler();
+        AuthGUI agui = new AuthGUI();
+        agui.show(true);
+
+
+
         System.out.println("Manual or Auto?");
 
 
