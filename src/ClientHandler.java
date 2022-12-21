@@ -37,23 +37,20 @@ public class ClientHandler implements Runnable,ClientF {  //Чтобы полу�
 
             this.logic = bufferedReader.readLine();
 
+            DatabaseHandler dbHandler = new DatabaseHandler(); // База данных
 
-            if(logic.equals("false"))
-            this.clientUsername = bufferedReader.readLine(); // Считываем имя пользователя
-            this.clientPhone = bufferedReader.readLine();
-            this.clientPassword = bufferedReader.readLine();
+            if(logic.equals("false")) {
+                this.clientUsername = bufferedReader.readLine(); // Считываем имя пользователя
+                this.clientPhone = bufferedReader.readLine();
+                this.clientPassword = bufferedReader.readLine();
+                dbHandler.singUpUser(clientUsername, clientPhone, clientPassword); // Регистрируем пользователя
+            }
             if(logic.equals("true"))
             {
                 this.clientUsername = bufferedReader.readLine();
                 this.clientPassword = bufferedReader.readLine();
                 bufferedWriter.write(DbLogin(clientUsername,clientPassword)+"\n");
             }
-
-
-
-            DatabaseHandler dbHandler = new DatabaseHandler(); // База данных
-            dbHandler.singUpUser(clientUsername, clientPhone, clientPassword); // Регистрируем пользователя
-            DbLogin(clientUsername, clientPassword);
 
             clientHandlers.add(this); // Добавляем пользователя в массив
 
