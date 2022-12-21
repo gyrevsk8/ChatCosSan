@@ -96,7 +96,6 @@ public class Client {
                 while (socket.isConnected()) { // Пока мы подключены
                     try {
                         msgFromGroupChat = bufferedReader.readLine(); // Считываем сообщение
-                        // gui.userlist.setText(msgFromGroupChat.substring(msgFromGroupChat.indexOf("@"),msgFromGroupChat.indexOf("$"+1)));
                         System.out.println(msgFromGroupChat);
                         JScrollBar vertical = gui.scrollPane.getVerticalScrollBar();
                         gui.textArea.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -203,7 +202,7 @@ public class Client {
             System.out.println("Manual or Auto?");
             gui.serverMessage.setText("Manual or Auto?");
             gui.setVisible(true);
-            System.out.println("su");
+            System.out.println("si");
             agui.show(false);
             String ip = new String();
             sleepe();// этот метод усыпляет поток

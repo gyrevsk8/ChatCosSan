@@ -50,6 +50,7 @@ public class ClientHandler implements Runnable,ClientF {  //Чтобы полу�
                 this.clientUsername = bufferedReader.readLine();
                 this.clientPassword = bufferedReader.readLine();
                 bufferedWriter.write(DbLogin(clientUsername,clientPassword)+"\n");
+                bufferedWriter.flush();
             }
 
             clientHandlers.add(this); // Добавляем пользователя в массив
@@ -158,10 +159,4 @@ public class ClientHandler implements Runnable,ClientF {  //Чтобы полу�
         }
     }
 
-    void demonstateHandlers() throws IOException {
-        for (ClientHandler clientHandler : clientHandlers) {
-            clientHandler.bufferedWriter.write("%"+clientHandler.clientUsername+"&");
-
-        }
-    }
 }
