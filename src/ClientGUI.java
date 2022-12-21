@@ -103,6 +103,7 @@ public class ClientGUI extends JFrame {
         input.addKeyListener(new KeyListener() { //создание слушателя нажатий на клавиатуру
 
             public void keyPressed(KeyEvent e) {
+               // System.out.println(e.getKeyCode());
                 if(e.getKeyCode()==KeyEvent.VK_ENTER){//если кнопка ENTER то действуем
                     messege+=input.getText();//получаем текст
                    // textArea.setText( textArea.getText() + "<p>" + input.getText());
