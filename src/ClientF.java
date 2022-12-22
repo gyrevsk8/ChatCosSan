@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.net.Socket;
 
 /**
@@ -8,7 +9,7 @@ import java.net.Socket;
  */
 public interface ClientF {
     public void run();
-    public void broadcastMessage(String messageToSend);
-    public void removeClientHandler();
-    public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter);
+    public void broadcastMessage(String messageToSend) ;
+    public void removeClientHandler() ;
+    public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter) ;
 }
