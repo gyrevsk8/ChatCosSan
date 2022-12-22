@@ -13,9 +13,7 @@ public class ClientGUI extends JFrame {
     JButton auto = new JButton("Server set");//создание объектов
     JTextField input = new JTextField("",15);//создание объектов, здесь 15-длина ввода
     public JLabel textArea = new JLabel();//создание объектов
-
     JLabel serverMessage = new JLabel();//создание объектов
-    JLabel userlist = new JLabel("qwd");//создание объектов
     String messege = "";
     final JScrollPane scrollPane = new JScrollPane(textArea);//создание объекта отвечающего за возможность скролить область сообщений
     Container container = this.getContentPane();//передаем контейнеру contenpane нашего окна
