@@ -7,42 +7,37 @@ import java.util.Scanner;
 
 public class IPHandler {
 
-    public String ipset() throws InterruptedException {
+    public String ipset() throws InterruptedException {//метод подключения к ip, заданного с клавиатуры
         Scanner scanner = new Scanner(System.in);
         System.out.println("IP:");
 
-        ///String ip = scanner.nextLine();
+
         Client.sleepe();
         String ip = Client.currentCommand;
         System.out.println(ip);
         return ip;
     }
 
-    public String ipautoset() throws Exception {
-        String ipFull=getLocalIpAddress();
-        String [] ipArray = ipFull.split("\\.");
-        return ipFull;
 
-    }
 
-    public static String getLocalIpAddress() {
-        InetAddress ip = null;
-        String hostname;
-        String ipFinal = null;
+    public String getLocalIpAddress() {//метод возвращающий адрес локального ip, к которому подключен клиент
+        InetAddress ip = null;//ip
+        String hostname;//имя хоста
+        String ipFinal = null;//финальный адресс
         String ipString;
 
         try {
-            ip = InetAddress.getLocalHost();
-            hostname = ip.getHostName();
+            ip = InetAddress.getLocalHost();//получаем "грязный" ip с ненужной информацией
+            hostname = ip.getHostName();//получаем имя хоста
             int lengthOfHostname = hostname.length();
-            ipString = String.valueOf(ip);
-            StringBuffer stringBuffer = new StringBuffer(ipString);
-            ipFinal=ipString.substring(lengthOfHostname+1);
+            ipString = String.valueOf(ip);// преобразуем в String
+            StringBuffer stringBuffer = new StringBuffer(ipString);//Вызываем StringBuffer для работы со строкой
+            ipFinal=ipString.substring(lengthOfHostname+1);//вырезаем из адреса ненужную информцию
             System.out.println("Your current IP address :" + ipFinal);
             System.out.println("Your current Hostname : " + hostname);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        return ipFinal;
+        return ipFinal;//возвращаем чистый ip
     }
 }

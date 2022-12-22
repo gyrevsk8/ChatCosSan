@@ -168,7 +168,7 @@ public class Client {
             {
                 System.out.println("Auto");
                 gui.serverMessage.setText("Auto");
-                ip=iph.ipautoset();
+                ip=iph.getLocalIpAddress();
                 System.out.println("Autodetected ip: "+ip);
                 gui.serverMessage.setText("Autodetected ip: "+ip);
             }
@@ -217,7 +217,7 @@ public class Client {
             {
                 System.out.println("Auto");
                 gui.serverMessage.setText("Auto");
-                ip=iph.ipautoset();
+                ip=iph.getLocalIpAddress();
                 System.out.println("Autodetected ip: "+ip);
                 gui.serverMessage.setText("Autodetected ip: "+ip);
             }
