@@ -15,3 +15,20 @@
 9. Поддержка базы данных для сервера(mySQL), сохранение в базе имён пользователей, паролей, сообщений, времени отправки
 10. Прочий функционал 
 
+Использованые библиотеки:
+java.net.Socket;
+javax.swing.*;
+java.net.ServerSocket;
+java.awt.*;
+java.sql.Connection;
+java.sql.DriverManager;
+java.sql.PreparedStatement;
+java.sql.SQLException;
+java.sql.ResultSet;
+javax.crypto.Cipher;
+java.nio.charset.StandardCharsets;
+java.security.*;
+java.util.Base64;
+java.time.LocalDateTime;
+org.junit.jupiter.api.Assertions.*;
+...
